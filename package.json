@@ -9,7 +9,8 @@
   "dependencies": {
     "react": "16.6.3",
     "react-native": "0.58.6",
-    "realm": "^2.24.0"
+    "realm": "^2.24.0",
+    "shortid": "^2.2.14"
   },
   "devDependencies": {
     "babel-core": "^7.0.0-bridge.0",

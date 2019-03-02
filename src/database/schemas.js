@@ -1,4 +1,5 @@
 import Realm from 'realm';
+import shortid from 'shortid'
 
 // define models and their properties
 export const NOISE_SCHEMA = 'Noise';
@@ -6,7 +7,7 @@ export const NoiseSchema = {
     name: NOISE_SCHEMA,
     primaryKey: 'id',
     properties: {
-        id: 'int', // primary key
+        id: 'string', // primary key
         level: 'double',
         timestamp: 'date',
         longitude: 'double',
@@ -25,6 +26,7 @@ const databaseOptions = {
 };
 
 export const insertNoise = newNoise => new Promise((resolve, reject) => {
+    newNoise.id = shortid.generate(); // generate a unique id of type string
     Realm.open(databaseOptions).then(realm => {
         realm.write(() => {
             realm.create(NOISE_SCHEMA, newNoise);

@@ -14,7 +14,7 @@ class NoiseHistory extends Component {
 
     componentWillMount() {
         insertNoise({
-            id: 2,
+            // id: 1, // auto generated
             level: 60.5,
             timestamp: new Date(),
             longitude: 1000034.34,
@@ -23,9 +23,7 @@ class NoiseHistory extends Component {
             deviceModel: 'FJ3453',
             isPublic: false,
             isSynced: false
-        }).then(value => this.reloadData()).catch(error => {
-            console.log(error)
-        })
+        }).then(value => this.reloadData()).catch(error => console.log(error));
         this.reloadData();
     }
 
@@ -35,14 +33,12 @@ class NoiseHistory extends Component {
             this.setState({noiseList})
         }).catch(error => {
             console.log("error in reloading noise history list", error);
-            this.state({noiseList: []})
         });
         console.log('reloadData')
     };
 
     render() {
-        // if (this.state.noiseList)
-        //     console.log(this.state.noiseList[0].level);
+        console.log(realm.path);
         return (<View>
             <Text>Noise History</Text>
             {/*<FlatList*/}
@@ -63,6 +59,6 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
     }
-})
+});
 
 export default NoiseHistory
