@@ -33,5 +33,12 @@ export const insertNoise = newNoise => new Promise((resolve, reject) => {
     }).catch(error => reject(error))
 });
 
+export const queryAllNoise = () => new Promise((resolve, reject) => {
+    Realm.open(databaseOptions).then(realm => {
+        let allNoiseList = realm.objects(NOISE_SCHEMA);
+        resolve(allNoiseList)
+    }).catch(error => reject(error))
+});
+
 
 export default new Realm(databaseOptions);
