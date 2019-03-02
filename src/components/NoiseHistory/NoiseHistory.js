@@ -13,19 +13,19 @@ class NoiseHistory extends Component {
     }
 
     componentWillMount() {
-        // insertNoise({
-        //     id: 2,
-        //     level: 60.5,
-        //     timestamp: new Date(),
-        //     longitude: 1000034.34,
-        //     latitude: 200034.454,
-        //     // type: ''
-        //     deviceModel: 'FJ3453',
-        //     isPublic: false,
-        //     isSynced: false
-        // }).then(value => this.reloadData()).catch(error => {
-        //     console.log(error)
-        // })
+        insertNoise({
+            id: 2,
+            level: 60.5,
+            timestamp: new Date(),
+            longitude: 1000034.34,
+            latitude: 200034.454,
+            // type: ''
+            deviceModel: 'FJ3453',
+            isPublic: false,
+            isSynced: false
+        }).then(value => this.reloadData()).catch(error => {
+            console.log(error)
+        })
         this.reloadData();
     }
 
