@@ -24,6 +24,14 @@ const databaseOptions = {
     schemaVersion: 0, // optional
 };
 
+export const insertNoise = newNoise => new Promise((resolve, reject) => {
+    Realm.open(databaseOptions).then(realm => {
+        realm.write(() => {
+            realm.create(NOISE_SCHEMA, newNoise);
+        });
+        resolve(newNoise)
+    }).catch(error => reject(error))
+});
 
 
 export default new Realm(databaseOptions);
