@@ -1,48 +1,61 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- * @lint-ignore-every XPLATJSCOPYRIGHT1
- */
-
-import React, {Component} from 'react';
-import {Button, TouchableOpacity, Platform, StyleSheet, Text, View} from 'react-native';
-import NavigationMenu from "./src/components/NavigationMenu/NavigationMenu";
-
-
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
-
-type Props = {};
-export default class App extends Component<Props> {
+import React, { Component } from "react";
+import {
+  View,
+  Text,
+  StyleSheet
+} from "react-native";
+import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs'
+import Icon from 'react-native-vector-icons/Ionicons'
+class HomeScreen extends Component {
   render() {
     return (
-        <NavigationMenu/>
+        <View style={styles.container}>
+          <Text>Tab Navigator Tutorial 2!</Text>
+        </View>
+    );
+  }
+}
+class SettingsScreen extends Component {
+  render() {
+    return (
+        <View style={styles.container}>
+          <Text>Settings</Text>
+        </View>
     );
   }
 }
 
+
+export default createMaterialBottomTabNavigator({
+  Home: {
+    screen: HomeScreen,
+    navigationOptions: {
+      tabBarLabel: 'Home',
+      tabBarIcon: ({ tintColor }) => (
+          <Icon name="ios-home" color={tintColor} size={24} />
+      )
+    }
+  },
+  Settings: {
+    screen: SettingsScreen,
+    navigationOptions: {
+      tabBarLabel: 'Home',
+      tabBarIcon: ({ tintColor }) => (
+          <Icon name="ios-settings" color={tintColor} size={24} />
+      )
+    }
+  }
+}, {
+  initialRouteName: 'Home',
+  // order: ['Settings', 'Home'],
+  activeTintColor: 'white',
+  shifting: true
+})
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+    justifyContent: 'center'
+  }
 });
