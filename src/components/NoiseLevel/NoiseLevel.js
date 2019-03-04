@@ -1,15 +1,37 @@
 import React, { Component } from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
+import RNSoundLevel from 'react-native-sound-level';
 
 export default class NoiseLevel extends Component{
+    state = {
+        noiselevel_data: {  
+                id:0,             // frame number
+                value:0,       // sound level in decibels, -160 is a silence level
+                rawValue:0        // raw level value, OS-dependent
+        }
+    }
+
+    componentDidMount() {
+        RNSoundLevel.start()
+        RNSoundLevel.onNewFrame = (data) => {
+            this.setState({
+               noiselevel_data: data 
+            })
+          console.log('Sound level info', data)
+        }
+      }
+      // don't forget to stop it
+      componentWillUnmount() {
+        RNSoundLevel.stop()
+      }
+
     render() {
         return (
             <View>
-                <Text style={styles.text_one}>Noise Level:</Text>
-                <Text style={styles.noise_level}>50 dB</Text>
+                <Text style={styles.text_one}>Current Noise Level:</Text>
+                <Text style={styles.noise_level}> dB</Text>
             </View>
         );
-       
     }
 }
 const styles = StyleSheet.create({
