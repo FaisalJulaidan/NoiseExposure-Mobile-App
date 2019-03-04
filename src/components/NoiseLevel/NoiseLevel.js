@@ -6,11 +6,11 @@ export default class NoiseLevel extends Component{
     state = {
         noiselevel_data: {  
                 id:0,             // frame number
-                value:0,       // sound level in decibels, -160 is a silence level
+                value:-160,       // sound level in decibels, -160 is a silence level
                 rawValue:0        // raw level value, OS-dependent
         }
     }
-
+    //https://www.npmjs.com/package/react-native-sound-level
     componentDidMount() {
         RNSoundLevel.start()
         RNSoundLevel.onNewFrame = (data) => {
@@ -20,7 +20,6 @@ export default class NoiseLevel extends Component{
           console.log('Sound level info', data)
         }
       }
-      // don't forget to stop it
       componentWillUnmount() {
         RNSoundLevel.stop()
       }
@@ -29,7 +28,7 @@ export default class NoiseLevel extends Component{
         return (
             <View>
                 <Text style={styles.text_one}>Current Noise Level:</Text>
-                <Text style={styles.noise_level}> dB</Text>
+                <Text style={styles.noise_level}>{this.state.noiselevel_data.value + 160} dB</Text>
             </View>
         );
     }
