@@ -60,9 +60,7 @@ export default class Location extends Component<Props> {
 
     render() {
         return (
-            <View >
-                <Text>Latitude: {this.state.location.currentLatitude}</Text>
-                <Text>Longitude: {this.state.location.currentLongitude}</Text>
+            <View>
             </View>
         );
     }
