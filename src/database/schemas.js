@@ -9,6 +9,7 @@ export const NoiseSchema = {
     properties: {
         id: 'string', // primary key
         level: 'double',
+        locationName: 'string',
         timestamp: 'date',
         longitude: 'double',
         latitude: 'double',

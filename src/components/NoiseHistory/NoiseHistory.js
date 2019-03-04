@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import { View, FlatList, Text, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
+import { Container, Header, Content, List, Text } from 'native-base';
+
 import {queryAllNoise, insertNoise} from '../../database/schemas';
+import NoiseItem from './NoiseItem/NoiseItem';
 import realm from '../../database/schemas';
 
 class NoiseHistory extends Component {
@@ -8,7 +11,19 @@ class NoiseHistory extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            noiseList: []
+            noiseList: [
+                {
+                    level: 60.5,
+                    locationName: 'Queen Street',
+                    timestamp: new Date(),
+                    longitude: 1000034.34,
+                    latitude: 200034.454,
+                    // type: ''
+                    deviceModel: 'FJ3453',
+                    isPublic: false,
+                    isSynced: false
+                }
+            ]
         }
     }
 
@@ -16,6 +31,7 @@ class NoiseHistory extends Component {
         insertNoise({
             // id: 1, // auto generated
             level: 60.5,
+            locationName: 'Queen Street',
             timestamp: new Date(),
             longitude: 1000034.34,
             latitude: 200034.454,
@@ -38,27 +54,36 @@ class NoiseHistory extends Component {
     };
 
     render() {
+        const {noiseList} = this.state;
         console.log(realm.path);
-        return (<View>
-            <Text>Noise History</Text>
-            {/*<FlatList*/}
-                {/*style={styles.flatList}*/}
-                {/*data={this.state.noiseList}*/}
-                {/*renderItem={} />*/}
-        </View>);
+        return (
+            <Container style={styles.container}>
+                <Header/>
+                <Content>
+                    <List style={styles.list}>
+                        {noiseList.map((noise, index) => {
+                            // return <NoiseItem key={index} noiseData={noise}/>
+                            return <Text key={index}> {noise.level} </Text>
+                        })}
+
+
+                    </List>
+                </Content>
+            </Container>
+        );
     }
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'flex-start'
+        margin: 0,
+        paddingLeft: 0,
     },
-    flatList: {
-        flex: 1,
-        flexDirection: 'column',
-    }
+    list: {
+        margin: 0,
+        paddingLeft: 0,
+
+    },
 });
 
 export default NoiseHistory
