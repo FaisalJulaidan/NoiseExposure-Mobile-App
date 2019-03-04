@@ -9,6 +9,8 @@
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
+import {requestLocationPermission} from "./src/components/Map/PermissionsRequest"
+import Map from "./src/components/Map/Map";
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -17,14 +19,31 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
+
 type Props = {};
 export default class App extends Component<Props> {
+
+  constructor(props) {
+    super(props);
+    this.state = { /* initial state */ };
+
+    var that = this;
+    //Checking for the permission just after component loaded
+    if (Platform.OS === 'ios') {
+      //this.callLocation(that);
+    } else {
+      requestLocationPermission();
+    }
+  }
+
   render() {
+
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>Welcome to React Native!</Text>
         <Text style={styles.instructions}>To get started, edit App.js</Text>
         <Text style={styles.instructions}>{instructions}</Text>
+        <Map/>
       </View>
     );
   }
