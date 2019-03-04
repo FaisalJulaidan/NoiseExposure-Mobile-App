@@ -8,9 +8,6 @@ import Location from "./Location";
 type Props = {};
 export default class Map extends Component<Props> {
 
-
-
-
     state = {
         region: {
             latitude: 0,
