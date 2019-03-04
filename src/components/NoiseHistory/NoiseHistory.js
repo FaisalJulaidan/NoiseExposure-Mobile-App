@@ -45,7 +45,6 @@ class NoiseHistory extends Component {
 
     reloadData = () => {
         queryAllNoise().then((noiseList) => {
-            console.log(noiseList[0].level);
             this.setState({noiseList})
         }).catch(error => {
             console.log("error in reloading noise history list", error);
@@ -62,8 +61,7 @@ class NoiseHistory extends Component {
                 <Content>
                     <List style={styles.list}>
                         {noiseList.map((noise, index) => {
-                            // return <NoiseItem key={index} noiseData={noise}/>
-                            return <Text key={index}> {noise.level} </Text>
+                            return <NoiseItem key={index} noiseData={noise}/>
                         })}
 
 
