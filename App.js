@@ -25,8 +25,7 @@ const TabNavigator = createBottomTabNavigator({
             let iconName;
             if (routeName === 'Home') {
                 iconName = `ios-volume-high`;
-            } else
-                if (routeName === 'Details Screen') {
+            } else if (routeName === 'Details Screen') {
                 iconName = `md-create`;
             } else if (routeName === 'History Screen') {
                 iconName = `ios-time`;
