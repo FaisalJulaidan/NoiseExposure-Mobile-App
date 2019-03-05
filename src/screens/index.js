@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Footer, FooterTab, Button, Icon, Text } from 'native-base';
 import HomeScreen from './HomeScreen.js';
 import HistoryScreen from './HistoryScreen.js';
 import SettingsScreen from './SettingsScreen.js';
 import DetailsScreen from './DetailsScreen.js';
-import { createBottomTabNavigator } from 'react-navigation';
+import { TabNavigator } from 'react-navigation'
+import { Button, Text, Icon, Footer, FooterTab} from 'native-base'
 
 
-export default createBottomTabNavigator(
+export default (MainScreenNavigator = TabNavigator(
     {
         Noise: { screen: HomeScreen },
         Details: { screen: DetailsScreen },
