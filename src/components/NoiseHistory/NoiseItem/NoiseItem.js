@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import { Container, Header, Content, List, ListItem, Thumbnail, Text, Left, Body, Right, Button } from 'native-base';
+import {ListItem, Text, Left, Body, Right, Button } from 'native-base';
 import {StyleSheet} from "react-native";
 class NoiseItem extends Component {
     render() {
         const {noiseData, text} = this.props;
+        const {timestamp} = noiseData; // date
+        // time hh:mm:ss
+        const time = timestamp.getHours() + ":" + timestamp.getMinutes() + ":" + timestamp.getSeconds();
         return (
             <ListItem thumbnail style={styles.item}>
 
@@ -17,6 +20,7 @@ class NoiseItem extends Component {
                 <Body style={styles.info}>
                 <Text>{noiseData.locationName}</Text>
                 <Text note numberOfLines={1}>{noiseData.timestamp.toDateString()}</Text>
+                <Text note numberOfLines={1}>{time}</Text>
                 </Body>
 
                 {/*<Right style={styles.viewBtn}>*/}

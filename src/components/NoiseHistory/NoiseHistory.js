@@ -30,7 +30,7 @@ class NoiseHistory extends Component {
     componentWillMount() {
         insertNoise({
             // id: 1, // auto generated
-            level: 60.5,
+            level: 70.5,
             locationName: 'Queen Street',
             timestamp: new Date(),
             longitude: 1000034.34,
