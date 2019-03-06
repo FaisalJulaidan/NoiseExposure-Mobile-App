@@ -3,7 +3,6 @@ import {StyleSheet, Text, View, Platform} from 'react-native';
 import MapView from 'react-native-maps';
 import { Marker } from 'react-native-maps';
 import Location from "./Location";
-import {requestLocationPermission} from "./PermissionsRequest";
 
 
 type Props = {};
@@ -25,13 +24,6 @@ export default class Map extends Component<Props> {
 
     constructor(props) {
         super(props);
-
-        //Checking for the permission just after component loaded
-        if (Platform.OS === 'ios') {
-            //this.callLocation(that);
-        } else {
-            requestLocationPermission();
-        }
 
 
         this.state = {
