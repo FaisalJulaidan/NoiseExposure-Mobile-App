@@ -57,7 +57,7 @@ class NoiseHistory extends Component {
         console.log(realm.path);
         return (
             <Container style={styles.container}>
-                <Header/>
+                <Header style={styles.header}/>
                 <Content>
                     <List style={styles.list}>
                         {noiseList.map((noise, index) => {
@@ -73,6 +73,9 @@ class NoiseHistory extends Component {
 }
 
 const styles = StyleSheet.create({
+    header: {
+        backgroundColor: '#018a99',
+    },
     container: {
         margin: 0,
         paddingLeft: 0,
