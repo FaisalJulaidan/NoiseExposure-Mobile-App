@@ -36,22 +36,28 @@ export default class NoiseLevel extends Component{
 }
 const styles = StyleSheet.create({
 text_one: {
-    fontSize: 30,
-    margin: 5,
+    fontSize: 35,
+    margin: 7,
     color: '#FFFFFF',
     textAlign: 'center',
   },
   noise_level: {
-    fontSize: 40,
+    fontSize: 50,
     margin: 1,
     color: '#FFFFFF',
     textAlign: 'center',
   },
   displayBox:{
     backgroundColor: '#018A99',
-    opacity: 0.9,
-    top: -200,
+    opacity: 0.7,
+    flex: 0.2, 
     left: 0,
     right: 0,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    width: '96%',
+    top: "-38%"
   }
 });
