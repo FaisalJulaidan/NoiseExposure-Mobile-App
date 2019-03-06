@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import RNSoundLevel from 'react-native-sound-level';
+import { insertNoise } from './../../database/schemas';
 
 export default class NoiseLevel extends Component{
     state = {
@@ -15,6 +16,18 @@ export default class NoiseLevel extends Component{
     componentDidMount() {
         RNSoundLevel.start()
         RNSoundLevel.onNewFrame = (data) => {
+            // insertNoise({
+            //     // id: 1, // auto generated
+            //     level: data.value + 160,
+            //     locationName: 'Queen Street',
+            //     timestamp: new Date(),
+            //     longitude: 1000034.34,
+            //     latitude: 200034.454,
+            //     // type: ''
+            //     deviceModel: 'FJ3453',
+            //     isPublic: false,
+            //     isSynced: false
+            // }).then(value => this.reloadData()).catch(error => console.log(error));
             this.setState({
                noiselevel_data: data 
             })
@@ -40,24 +53,29 @@ text_one: {
     margin: 7,
     color: '#FFFFFF',
     textAlign: 'center',
+    opacity: 1
   },
   noise_level: {
     fontSize: 50,
     margin: 1,
     color: '#FFFFFF',
     textAlign: 'center',
+    opacity: 1
   },
   displayBox:{
     backgroundColor: '#018A99',
     opacity: 0.7,
-    flex: 0.2, 
-    left: 0,
-    right: 0,
+    left: "2%",
+    right: "2%",
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     width: '96%',
-    top: "-38%"
+    height: '27%',
+    top: "2%",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    position: "absolute"
   }
 });
