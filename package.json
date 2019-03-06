@@ -9,12 +9,11 @@
   "dependencies": {
     "native-base": "^2.12.0",
     "react": "16.6.3",
-    "react-native": "0.58.6",
     "react-native-gesture-handler": "^1.1.0",
     "react-native-paper": "^2.12.0",
     "react-native-vector-icons": "^6.3.0",
     "react-navigation": "^3.0.0",
-    "react-navigation-material-bottom-tabs": "^0.4.0"
+    "react-navigation-material-bottom-tabs": "^0.4.0",
     "react-native": "0.58.6",
     "realm": "^2.24.0",
     "shortid": "^2.2.14"
