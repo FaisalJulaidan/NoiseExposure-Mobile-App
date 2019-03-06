@@ -1,12 +1,18 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, Platform} from 'react-native';
 import MapView from 'react-native-maps';
 import { Marker } from 'react-native-maps';
 import Location from "./Location";
+import {requestLocationPermission} from "./PermissionsRequest";
 
 
 type Props = {};
 export default class Map extends Component<Props> {
+
+    // Maps from react-native-maps
+    // https://github.com/react-native-community/react-native-maps
+    // With help from https://aboutreact.com/react-native-map-example/
+    // and https://codeburst.io/react-native-google-map-with-react-native-maps-572e3d3eee14
 
     state = {
         region: {
@@ -19,6 +25,14 @@ export default class Map extends Component<Props> {
 
     constructor(props) {
         super(props);
+
+        //Checking for the permission just after component loaded
+        if (Platform.OS === 'ios') {
+            //this.callLocation(that);
+        } else {
+            requestLocationPermission();
+        }
+
 
         this.state = {
             region: {
@@ -60,6 +74,7 @@ export default class Map extends Component<Props> {
                         coordinate={{latitude: this.state.region.latitude, longitude: this.state.region.longitude}}
                         title="You Are Here"
                         description="Here is where you are"
+                        pinColor="#3b747b"
                     />
                 </MapView>
 
@@ -68,6 +83,7 @@ export default class Map extends Component<Props> {
     }
 }
 
+// Styling for Google Maps
 const styles = StyleSheet.create({
     container: {
         position:'absolute',
@@ -185,7 +201,7 @@ const mapStyle = [
         "elementType": "geometry.fill",
         "stylers": [
             {
-                "color": "#67ff3d"
+                "color": "#cbffb5"
             }
         ]
     },
