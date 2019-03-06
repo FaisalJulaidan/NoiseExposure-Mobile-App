@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, Platform} from 'react-native';
-import MapView from 'react-native-maps';
+import MapView, { OverlayComponent } from 'react-native-maps';
 import { Marker } from 'react-native-maps';
 import Location from "./Location";
+import NoiseLevel from "../NoiseLevel/NoiseLevel";
 
 
 type Props = {};
@@ -14,6 +15,10 @@ export default class Map extends Component<Props> {
     // and https://codeburst.io/react-native-google-map-with-react-native-maps-572e3d3eee14
 
     state = {
+        location: {
+            latitude: 0,
+            longitude: 0
+        },
         region: {
             latitude: 0,
             longitude: 0,
@@ -27,6 +32,10 @@ export default class Map extends Component<Props> {
 
 
         this.state = {
+            location: {
+                latitude: 0,
+                longitude: 0
+            },
             region: {
                 latitude: 0,
                 longitude: 0,
@@ -43,8 +52,12 @@ export default class Map extends Component<Props> {
     getNewLocation = (location) => {
         console.log(location);
         this.setState({
-            region: {
+            location: {
                 latitude: location.currentLatitude,
+                longitude: location.currentLongitude,
+            },
+            region: {
+                latitude: location.currentLatitude + 0.015,
                 longitude: location.currentLongitude,
                 latitudeDelta: 0.0922,
                 longitudeDelta: 0.0421,
@@ -63,13 +76,13 @@ export default class Map extends Component<Props> {
                     // onRegionChange={this.onRegionChange}
                 >
                     <Marker
-                        coordinate={{latitude: this.state.region.latitude, longitude: this.state.region.longitude}}
+                        coordinate={{latitude: this.state.location.latitude, longitude: this.state.region.longitude}}
                         title="You Are Here"
                         description="Here is where you are"
                         pinColor="#3b747b"
                     />
                 </MapView>
-
+                <NoiseLevel/>
             </View>
         );
     }
@@ -88,7 +101,7 @@ const styles = StyleSheet.create({
     },
     map: {
         position:'absolute',
-        top:200,
+        top:0,
         left:0,
         right:0,
         bottom:0,
