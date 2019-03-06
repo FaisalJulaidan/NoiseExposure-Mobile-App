@@ -38,7 +38,9 @@ export const insertNoise = newNoise => new Promise((resolve, reject) => {
 
 export const queryAllNoise = () => new Promise((resolve, reject) => {
     Realm.open(databaseOptions).then(realm => {
-        let allNoiseList = realm.objects(NOISE_SCHEMA);
+        // return all noise data sorted by timestamp
+        let allNoiseList = realm.objects(NOISE_SCHEMA)
+            .sorted('timestamp', true);
         resolve(allNoiseList)
     }).catch(error => reject(error))
 });
