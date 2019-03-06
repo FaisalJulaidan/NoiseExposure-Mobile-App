@@ -42,6 +42,7 @@
 		ECAD7E3907724034A3650756 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 781CB4A15DDE4822A5FAD300 /* libz.tbd */; };
 		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
 		ED2971652150620600B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED2971642150620600B7C4FE /* JavaScriptCore.framework */; };
+		BD65ABB73054467A8A91BEE1 /* libRNSoundLevel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 143126B9F4494003829869A4 /* libRNSoundLevel.a */; };
 		53C75F405B2245309984077C /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D4CC10946952499FB2C170ED /* AntDesign.ttf */; };
 		0FDB0AB30A874C0480D2CD61 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DE499656365541E29C8D5D28 /* Entypo.ttf */; };
 		BBD3C95F9E1D4E7E817BB269 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 37B22129F5D542BEB2C0B417 /* EvilIcons.ttf */; };
@@ -406,6 +407,8 @@
 		0AAAD91C148E4C2195996BC0 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; name = "RNVectorIcons.xcodeproj"; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		C93B1F5D9F5244E7A67F589E /* libRNVectorIcons.a */ = {isa = PBXFileReference; name = "libRNVectorIcons.a"; path = "libRNVectorIcons.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		4CEF1BEED7C9441085C98E96 /* libRNVectorIcons-tvOS.a */ = {isa = PBXFileReference; name = "libRNVectorIcons-tvOS.a"; path = "libRNVectorIcons-tvOS.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		6BCF9DE0F1C54EE887800A6A /* RNSoundLevel.xcodeproj */ = {isa = PBXFileReference; name = "RNSoundLevel.xcodeproj"; path = "../node_modules/react-native-sound-level/ios/RNSoundLevel.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		143126B9F4494003829869A4 /* libRNSoundLevel.a */ = {isa = PBXFileReference; name = "libRNSoundLevel.a"; path = "libRNSoundLevel.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -434,6 +437,7 @@
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
+				BD65ABB73054467A8A91BEE1 /* libRNSoundLevel.a in Frameworks */,
 				C436337E5D70402191E978B8 /* libRealmReact.a in Frameworks */,
 				8D49D6D848DC48269964CC1C /* libc++.tbd in Frameworks */,
 				ECAD7E3907724034A3650756 /* libz.tbd in Frameworks */,
@@ -648,6 +652,7 @@
 				832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */,
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
+				6BCF9DE0F1C54EE887800A6A /* RNSoundLevel.xcodeproj */,
 				94755E4F46064B7186DB742E /* RealmReact.xcodeproj */,
 				657F49AE17754E8B8834DD92 /* RNGestureHandler.xcodeproj */,
 				0AAAD91C148E4C2195996BC0 /* RNVectorIcons.xcodeproj */,
@@ -1350,6 +1355,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NEA_Mobile.app/NEA_Mobile";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)\..\node_modules\react-native-sound-level/**",
+				);
 			};
 			name = Debug;
 		};
@@ -1382,6 +1395,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NEA_Mobile.app/NEA_Mobile";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)\..\node_modules\react-native-sound-level/**",
+				);
 			};
 			name = Release;
 		};
@@ -1408,6 +1429,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = nsa.noiseExposureTeam.app;
 				PRODUCT_NAME = NEA_Mobile;
 				VERSIONING_SYSTEM = "apple-generic";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)\..\node_modules\react-native-sound-level/**",
+				);
 			};
 			name = Debug;
 		};
@@ -1433,6 +1458,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = nsa.noiseExposureTeam.app;
 				PRODUCT_NAME = NEA_Mobile;
 				VERSIONING_SYSTEM = "apple-generic";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)\..\node_modules\react-native-sound-level/**",
+				);
 			};
 			name = Release;
 		};
@@ -1473,6 +1502,14 @@
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.2;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)\..\node_modules\react-native-sound-level/**",
+				);
 			};
 			name = Debug;
 		};
@@ -1513,6 +1550,14 @@
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.2;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)\..\node_modules\react-native-sound-level/**",
+				);
 			};
 			name = Release;
 		};
@@ -1552,6 +1597,14 @@
 				SDKROOT = appletvos;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NEA_Mobile-tvOS.app/NEA_Mobile-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)\..\node_modules\react-native-sound-level/**",
+				);
 			};
 			name = Debug;
 		};
@@ -1591,6 +1644,14 @@
 				SDKROOT = appletvos;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NEA_Mobile-tvOS.app/NEA_Mobile-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)\..\node_modules\react-native-sound-level/**",
+				);
 			};
 			name = Release;
 		};
