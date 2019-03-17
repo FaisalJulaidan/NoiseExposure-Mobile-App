@@ -61,8 +61,6 @@ export const  setAllSyncedItemsAsSynced = (syncedRows) => new Promise((resolve, 
                 // Update item to say its synced
                 realm.create(NOISE_SCHEMA, {id: syncedRows[j].id, isSynced: true}, true);
             }
-            syncedRows.forEach(function (noiseItem) {
-            });
         });
     }).catch(error => reject(error))
 });
