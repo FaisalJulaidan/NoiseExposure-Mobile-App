@@ -1,6 +1,9 @@
 import {http} from '.'
 import {queryAllNonSyncedNoise, setAllSyncedItemsAsSynced} from "../database/schemas";
 
+// Syncing with axios
+// https://www.npmjs.com/package/react-native-axios
+
 export function getNoiseData() {
     http.get('/noise')
         .then(function (response) {
