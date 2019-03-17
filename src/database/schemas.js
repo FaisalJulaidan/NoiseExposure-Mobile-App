@@ -15,6 +15,7 @@ export const NoiseSchema = {
         latitude: 'double',
         type: 'string?',
         deviceModel: 'string',
+        severity: 'string',
         isPublic: 'bool',
         isSynced: 'bool'
     }
@@ -23,7 +24,7 @@ export const NoiseSchema = {
 const databaseOptions = {
     path: 'noiseExposureApp.realm',
     schema: [NoiseSchema],
-    schemaVersion: 0, // optional
+    schemaVersion: 1, // optional
 };
 
 export const insertNoise = newNoise => new Promise((resolve, reject) => {

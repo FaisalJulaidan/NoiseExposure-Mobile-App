@@ -20,6 +20,7 @@ class NoiseHistory extends Component {
                     latitude: 200034.454,
                     // type: ''
                     deviceModel: 'FJ3453',
+                    severity: '1',
                     isPublic: false,
                     isSynced: false
                 }
@@ -37,6 +38,7 @@ class NoiseHistory extends Component {
             latitude: 200034.454,
             // type: ''
             deviceModel: 'FJ3453',
+            severity: '1',
             isPublic: false,
             isSynced: false
         }).then(value => this.reloadData()).catch(error => console.log(error));
