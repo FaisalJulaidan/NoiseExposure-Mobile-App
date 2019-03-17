@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Header, Content, Footer, FooterTab, Icon, Text, View } from 'native-base';
 import { Button } from 'react-native';
-import {getNoiseData, sendNoiseDataToServer} from "../utilities/synchronisation";
+import {sendNoiseDataToServer} from "../utilities";
 
 class SettingsScreen extends React.Component {
 
