@@ -47,7 +47,7 @@ export const queryAllNoise = () => new Promise((resolve, reject) => {
 
 export const queryAllNonSyncedNoise = () => new Promise((resolve, reject) => {
     Realm.open(databaseOptions).then(realm => {
-        // return all noise data sorted by timestamp
+        // return all Non synced (isSync = false) noise data sorted by timestamp
         let allNoiseList = realm.objects(NOISE_SCHEMA).filtered('isSynced = False')
             .sorted('timestamp', true);
         resolve(allNoiseList)
@@ -62,7 +62,6 @@ export const  setAllSyncedItemsAsSynced = (syncedRows) => new Promise((resolve, 
                 realm.create(NOISE_SCHEMA, {id: syncedRows[j].id, isSynced: true}, true);
             }
             syncedRows.forEach(function (noiseItem) {
-
             });
         });
     }).catch(error => reject(error))
