@@ -30,6 +30,7 @@ class SettingsScreen extends React.Component {
                 <Button
                     onPress={this.sendDataToServer}
                     title="Sync Data"
+                    disabled={false}
                 />
             </View>
         );
