@@ -103,6 +103,25 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+
+        /**
+         * Realm 64 bit Driver Issue
+         *
+         * React Native seems to have an issue with 64bit in terms of 3rd party addon support
+         * one tool that had this issue was realm which would crash the entire application
+         *
+         * To mitigate this the ndk filter below only complies the application for arm 32bit and x86 meaning
+         * it will use the 32bit version of realm, thus fixing the problem with the side effect of reducsed
+         * performance on newer phones
+         *
+         * Solution / workaround found here:
+         * https://github.com/facebook/react-native/issues/2814#issuecomment-141417494
+         *
+         * MP (18/03/2019)
+         * */
+        ndk {
+            abiFilters "armeabi-v7a", "x86"
+        }
     }
     splits {
         abi {
