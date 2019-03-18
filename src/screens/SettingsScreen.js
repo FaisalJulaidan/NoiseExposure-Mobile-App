@@ -2,18 +2,27 @@ import React, { Component } from 'react';
 import { Container, Header, Content, Footer, FooterTab, Icon, Text, View } from 'native-base';
 import { Button } from 'react-native';
 import {sendNoiseDataToServer} from "../utilities";
+import LoginModal from '../components/Login/LoginModal';
 
-class SettingsScreen extends React.Component {
+class SettingsScreen extends Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            noise: "_"
+            noise: "_",
+            userLoggedIn: false,
         };
     }
 
-
+    loginBtn = () => {
+        if (this.state.userLoggedIn === false) {
+            return "Login"
+        }
+        else{
+            return "Log out"
+        }
+    }
     sendDataToServer = () => {
         const response = sendNoiseDataToServer();
 
@@ -28,9 +37,12 @@ class SettingsScreen extends React.Component {
                 <Text> {this.state.noise} </Text>
                 <Text>Settings SCREEN</Text>
                 <Button
+                    title="Login"
+                />
+                <Button
                     onPress={this.sendDataToServer}
                     title="Sync Data"
-                    disabled={false}
+                    disabled={this.state.userLoggedIn}
                 />
             </View>
         );
