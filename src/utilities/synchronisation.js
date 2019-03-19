@@ -22,10 +22,17 @@ export function validateUserDetails(email, password) { //Function that posts to 
     }).then(function (response) { //response will return with a status code or a key
         console.log(response);
 
-        return response //returning the response
+        let data = { //test response
+            status: 500
+        };
+        return data //returning the response
     }).catch(function (error) { //error handling if the post rejects
         console.log(error);
-        return error //returning the possible error
+        let data = {
+            status: 500  //test response
+        };
+        return data
+
     });
 }
 
@@ -41,6 +48,7 @@ export function sendNoiseDataToServer() {
 
             // If all data has been synced then set all items as Synced in database
             setAllSyncedItemsAsSynced(noiseList);
+
 
             return response
         }).catch(function (error) {
