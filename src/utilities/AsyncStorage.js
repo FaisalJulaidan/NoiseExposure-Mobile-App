@@ -3,7 +3,7 @@ import {AsyncStorage} from 'react-native';
 export const MAP_THEME_KEY = 'Map-Theme';
 
 // request to Store data in local storage
-export const storeData = async (key, value) => {
+const storeData = async (key, value) => {
     try {
         await AsyncStorage.setItem(key, value);
         return value
@@ -15,7 +15,7 @@ export const storeData = async (key, value) => {
 };
 
 // request to get data from local storage then return its value
-export const retrieveData = async (key) => {
+const retrieveData = async (key) => {
     try {
         const value = await AsyncStorage.getItem(key);
         if (value !== null) {
@@ -29,4 +29,9 @@ export const retrieveData = async (key) => {
         // Error retrieving data
         console.log(error)
     }
+};
+
+export const asyncStorage = {
+    storeData,
+    retrieveData
 };

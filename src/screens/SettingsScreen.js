@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, Switch } from 'native-base';
 import {Button} from 'react-native';
-import {MAP_THEME_KEY, retrieveData, sendNoiseDataToServer, storeData} from "../utilities";
+import {MAP_THEME_KEY, asyncStorage, sendNoiseDataToServer} from "../utilities";
 
 class SettingsScreen extends Component {
 
@@ -14,7 +14,7 @@ class SettingsScreen extends Component {
         super(props);
 
         // Call the Async Storage to get MapThemeKey Value
-        retrieveData(MAP_THEME_KEY).then((value) => {
+        asyncStorage.retrieveData(MAP_THEME_KEY).then((value) => {
             if (value === 'dark') {
                 this.setState( {
                     darkThemeToggle: true,
@@ -53,7 +53,7 @@ class SettingsScreen extends Component {
             console.log("theme toggle to light");
         }
 
-        storeData(MAP_THEME_KEY, mapTheme).then((value) => {
+        asyncStorage.storeData(MAP_THEME_KEY, mapTheme).then((value) => {
 
         }).catch((error) => {
 
