@@ -15,6 +15,19 @@ export function getNoiseData() {
         });
 }
 
+export function validateUserDetails(email, password){ //Function that posts to the database
+    http.post('/upload', { //route to the posting to the server
+        email: email, //created email object that will use the password that's will be passed through to the server
+        password: password //created password object that will use the password that's passed through to the server
+    }).then(function (response) { //response will return with a status code or a key
+        console.log(response);
+
+        return response //returning the response
+    }).catch(function (error) { //error handling if the post rejects
+        console.log(error);
+        return error //returning the possible error
+    });
+
 
 export function sendNoiseDataToServer() {
     // Query database for all non synced data

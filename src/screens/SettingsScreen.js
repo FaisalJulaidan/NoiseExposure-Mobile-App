@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Text, View } from 'native-base';
 import { Button } from 'react-native';
 import {sendNoiseDataToServer} from "../utilities";
-import CreateAccountModal from '../components/Login/CreateAccountModal';
+import CreateAccountModal from '../components/Account/CreateAccountModal';
+import LoginModal from "../components/Account/LoginModal";
 
 class SettingsScreen extends Component {
 
@@ -17,7 +18,7 @@ class SettingsScreen extends Component {
 
     loginBtn = () => {
         if (this.state.userLoggedIn === false) {
-            return "Login"
+            return "Account"
         }
         else{
             return "Log out"
@@ -37,6 +38,7 @@ class SettingsScreen extends Component {
                 <Text> {this.state.noise} </Text>
                 <Text>Settings SCREEN</Text>
                 <CreateAccountModal/>
+                <LoginModal/>
                 <Button
                     onPress={this.sendDataToServer}
                     title="Sync Data"
