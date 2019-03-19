@@ -15,7 +15,7 @@ export function getNoiseData() {
         });
 }
 
-export function validateUserDetails(email, password){ //Function that posts to the database
+export function validateUserDetails(email, password) { //Function that posts to the database
     http.post('/upload', { //route to the posting to the server
         email: email, //created email object that will use the password that's will be passed through to the server
         password: password //created password object that will use the password that's passed through to the server
@@ -27,6 +27,7 @@ export function validateUserDetails(email, password){ //Function that posts to t
         console.log(error);
         return error //returning the possible error
     });
+}
 
 
 export function sendNoiseDataToServer() {

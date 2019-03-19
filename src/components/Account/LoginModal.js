@@ -27,28 +27,33 @@ Validation = () => {
     render() {
         return (
             <View style={{marginTop: 22}}>
-                <Modal {/* Modal Preferences */}
+
+                <Modal
                     animationType="fade"
                     transparent={false}
                     visible={this.state.modalVisible}>
                     <View style={{marginTop: 22}}>
                         <View>
+
+
                             <TextInput
-                            onChangeText={(Email) => this.setState({Email})} {/* changing the state of the Email object to whatever is in the TextInput */}
+                            onChangeText={(Email) => this.setState({Email})}
                             value={this.state.Email}
                             placeholder={"Enter Email Here"}>
                             </TextInput>
 
-                            <TextInput {/* Password text input */}
-                            onChange={(Password) => this.setState({Password})} {/* changing the state of the password object to whatever is in the TextInput */}
+
+                            <TextInput
+                            onChange={(Password) => this.setState({Password})}
                             value={this.state.Password}
                             placeholder={"Enter Password Here"}>
                             </TextInput>
 
-                            <Button title={"Log In"} {/* 'Login Button' */}
-                                    onPress={this.Validation}/> {/* Calling the validation method */}
+                            <Button title={"Log In"}
+                                    onPress={this.Validation}/>
 
-                            <Button {/* 'Cancel' login Button, setting the state back to the default state */}
+
+                            <Button
                                 onPress={() => {
                                     this.setModalVisible(!this.state.modalVisible);
                                 }} title={"Cancel"}
@@ -58,7 +63,7 @@ Validation = () => {
                 </Modal>
 
 
-                <Button {/* This is the button that displays the modal when you press it */}
+                <Button
                     onPress={() => {
                         this.setModalVisible(true);
                     }} title={"Login"}>
