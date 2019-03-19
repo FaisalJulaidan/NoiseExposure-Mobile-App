@@ -36,6 +36,7 @@ class SettingsScreen extends Component {
             <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
                 <Text> {this.state.noise} </Text>
                 <Text>Settings SCREEN</Text>
+                <CreateAccountModal/>
                 <Button
                     onPress={this.sendDataToServer}
                     title="Sync Data"
