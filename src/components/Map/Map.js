@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Platform} from 'react-native';
-import MapView, { OverlayComponent } from 'react-native-maps';
+import {StyleSheet, View} from 'react-native';
+import MapView from 'react-native-maps';
 import { Marker } from 'react-native-maps';
 import Location from "./Location";
 import NoiseLevel from "../NoiseLevel/NoiseLevel";
+import {MAP_THEME_KEY, retrieveData} from "../../utilities";
 
 
 type Props = {};
@@ -15,7 +16,7 @@ export default class Map extends Component<Props> {
     // and https://codeburst.io/react-native-google-map-with-react-native-maps-572e3d3eee14
 
     state = {
-        mapTheme: mapStyle_light,
+        mapTheme: mapStyle_dark,
         location: {
             latitude: 0,
             longitude: 0
@@ -28,13 +29,34 @@ export default class Map extends Component<Props> {
         },
     };
 
+
     constructor(props) {
         super(props);
 
-        let theme = this.getTheme();
+        // Call local storage to get stored Map Theme
+        retrieveData(MAP_THEME_KEY).then((value) => {
+            if (value === 'light') {
+                this.setState( {
+                    mapTheme: mapStyle_light
+                });
+            } else if (value === 'dark') {
+                this.setState({
+                    mapTheme: mapStyle_dark
+                });
+            } else {
+                this.setState( {
+                    mapTheme: mapStyle_light
+                });
+            }
+        }).catch((error) => {
+            console.log(error);
+            this.setState( {
+                mapTheme: mapStyle_light
+            });
+        });
 
         this.state = {
-            mapTheme: theme,
+            mapTheme: mapStyle_light,
             location: {
                 latitude: 0,
                 longitude: 0
@@ -46,17 +68,6 @@ export default class Map extends Component<Props> {
                 longitudeDelta: 0.0421,
             }
         };
-    }
-
-    getTheme = () => {
-        // Set the map Styling based on the current Time
-        let hours = new Date().getHours();
-
-        if (hours < 18){
-            return mapStyle_light;
-        } else{
-            return mapStyle_dark;
-        }
     }
 
     onRegionChange(region) {
@@ -78,6 +89,8 @@ export default class Map extends Component<Props> {
             }
         });
     };
+
+
 
     render() {
         return (
