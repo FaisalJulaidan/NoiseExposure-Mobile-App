@@ -31,7 +31,7 @@ export default class NoiseLevel extends Component{
             this.setState({
                noiselevel_data: data 
             })
-          console.log('Sound level info', data)
+          //console.log('Sound level info', data)
         }
       }
       componentWillUnmount() {
