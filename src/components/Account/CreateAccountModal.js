@@ -1,9 +1,11 @@
 import React, { Component, Fragment } from 'react';
-import {Modal, Text, View, Button, StyleSheet} from 'react-native';
+import {Modal, Text, View, Button, StyleSheet, TextInput} from 'react-native';
 
 export default class LoginModal extends Component{
   state = {
-    modelOpen: false
+    modelOpen: false,
+    email: '',
+    password: '',
   };
 
   openLogin = () => this.setState({
@@ -24,6 +26,20 @@ export default class LoginModal extends Component{
               <View style={styles.modalContainer}>
                 <Text style={styles.heading}>Create Account</Text>
                 <Text style={styles.disclaimer}>Disclaimer: You are required to have an account to make data public.</Text>
+                
+                <Text>Email:</Text>
+                <TextInput
+                    onChangeText={(email) => this.setState({email})}
+                    value={this.state.email}
+                    placeholder={"Enter Email here"}>
+                </TextInput>
+                
+                <Text>Password:</Text>
+                <TextInput
+                    onChangeText={(password) => this.setState({password})}
+                    value={this.state.password}
+                    placeholder={"Enter Password here"}>
+                </TextInput>
                 <View style={styles.btnLayout}>
                   <Button 
                     onPress={this.closeLogin}
@@ -54,8 +70,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderWidth: 2,
     marginHorizontal: 60,
-    marginVertical: 120,
-    height: 150
+    paddingTop: 0
   },
   heading: {
     color: '#018a99',
