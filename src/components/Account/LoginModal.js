@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Modal, Text, View, Button, TextInput, Alert} from 'react-native';
+import {Modal, Text, View, Button, TextInput, Alert, StyleSheet} from 'react-native';
 import {validateUserDetails} from "../../utilities";
 
 
@@ -12,17 +12,14 @@ class LoginModal extends Component {
 
 Validation = () => {
     console.log(this.state.Email, this.state.Password);
-    let response = validateUserDetails(this.state.Email, this.state.Password)//Setting the response to the method in synchronisation. Passing through the state of the email and password set in this class.
-    .then(function (response) { //response will return with a status code or a key
+    validateUserDetails(this.state.Email, this.state.Password).then(function (response) { //response will return with a status code or a key
         console.log(response);
-
-
         return response //returning the response
+
     }).catch(function (error) { //error handling if the post rejects
         console.log(error);
         return Alert.alert(" Email or Password doesn't match OR the account doesn't exist") //if not send an alert
     })
-
 };
 
 
@@ -78,5 +75,12 @@ Validation = () => {
         );
     }
 }
+
+// const styles = StyleSheet.create({
+//     LoginButton:{
+//         color: '#176381'
+//
+//     }
+// })
 
 export default LoginModal
