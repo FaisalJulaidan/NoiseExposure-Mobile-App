@@ -20,7 +20,7 @@ export function getNoiseData() {
 }
 
 export function validateUserDetails(email, password) { //Function that posts to the database
-    return axios.post('http://10.164.79.83:5000/api/auth', { //route to the posting to the server
+    return http.post('/auth', { //route to the posting to the server
         email: email, //created email object that will use the password that's will be passed through to the server
         password: password //created password object that will use the password that's passed through to the server
     }).then(response => { //response will return with a status code or a key
