@@ -81,7 +81,7 @@ class SettingsScreen extends Component {
                     title="Sync Data"
                     disabled={false}
                 />
-                <Text>Enable Dark Theme </Text>
+                <Text>Enable Dark Theme For Map (Changes on Restart)</Text>
                 <Switch
                     onValueChange = {this.changeMapTheme}
                     value = {this.state.darkThemeToggle}
