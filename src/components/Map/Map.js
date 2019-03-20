@@ -4,8 +4,7 @@ import MapView from 'react-native-maps';
 import { Marker } from 'react-native-maps';
 import Location from "./Location";
 import NoiseLevel from "../NoiseLevel/NoiseLevel";
-import {MAP_THEME_KEY, asyncStorage} from "../../utilities";
-import {asyncStorage as AsyncStorage} from "../../utilities/AsyncStorage";
+import {asyncStorage, MAP_THEME_KEY} from "../../utilities";
 
 
 type Props = {};
@@ -35,7 +34,8 @@ export default class Map extends Component<Props> {
         super(props);
 
         // Call local storage to get stored Map Theme
-        AsyncStorage.retrieveData(MAP_THEME_KEY).then((value) => {
+        asyncStorage.retrieveData(MAP_THEME_KEY).then((value) => {
+            console.log("Setting Map theme : " + value);
             if (value === 'light') {
                 this.setState( {
                     mapTheme: mapStyle_light
@@ -50,6 +50,7 @@ export default class Map extends Component<Props> {
                 });
             }
         }).catch((error) => {
+            console.log("Map theme key Failed : Setting Default : " + error);
             console.log(error);
             this.setState( {
                 mapTheme: mapStyle_light

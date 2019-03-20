@@ -6,11 +6,11 @@ export const MAP_THEME_KEY = 'Map-Theme';
 const storeData = async (key, value) => {
     try {
         await AsyncStorage.setItem(key, value);
-        return value
+        return Promise.resolve(value)
     } catch (error) {
         // Error saving data
         console.log("key ser error : " + error);
-        return error
+        return Promise.reject(error)
     }
 };
 
@@ -21,13 +21,14 @@ const retrieveData = async (key) => {
         if (value !== null) {
             // We have data!!
             console.log("value from async storage " + value);
-            return value;
+            return Promise.resolve(value)
         } else {
-            console.log("Key is Empty")
+            console.log("key get error value is blank : " + error);
+            return Promise.reject(error)
         }
     } catch (error) {
         // Error retrieving data
-        console.log(error)
+        console.log("key set error : " + error);
     }
 };
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, Switch } from 'native-base';
 import {Button} from 'react-native';
-import {MAP_THEME_KEY, asyncStorage, sendNoiseDataToServer} from "../utilities";
+import {asyncStorage, MAP_THEME_KEY, sendNoiseDataToServer} from "../utilities";
 
 class SettingsScreen extends Component {
 
@@ -13,32 +13,40 @@ class SettingsScreen extends Component {
     constructor(props) {
         super(props);
 
+        // asyncStorage.storeData(MAP_THEME_KEY, 'light').then((value) => {
+        //
+        // }).catch((error) => {
+        //
+        // });
+
         // Call the Async Storage to get MapThemeKey Value
         asyncStorage.retrieveData(MAP_THEME_KEY).then((value) => {
+            console.log("Key returned : " + value);
             if (value === 'dark') {
-                this.setState( {
+                this.setState({
                     darkThemeToggle: true,
                     asyncStorageNotLoaded: false
                 });
             } else if (value === 'light') {
-                this.setState( {
+                this.setState({
                     darkThemeToggle: false,
                     asyncStorageNotLoaded: false
                 });
             }
-        }).catch((error) => {
-            console.log(error);
-            this.setState( {
-                asyncStorageNotLoaded: true
+        }).catch(error => {
+            console.log("Error getting Key" + error);
+            this.setState({
+                darkThemeToggle: false,
+                asyncStorageNotLoaded: false
             });
         });
+
     }
 
     // Method to set the Map theme in local storage
     changeMapTheme = (value) => {
         // Set Value in state
         this.setState({
-
             darkThemeToggle: value
         });
 
@@ -54,10 +62,8 @@ class SettingsScreen extends Component {
         }
 
         asyncStorage.storeData(MAP_THEME_KEY, mapTheme).then((value) => {
-
-        }).catch((error) => {
-
-        });
+            console.log(MAP_THEME_KEY + " " + value + " : Key Stored");
+        }).catch(err => console.log('There was an error:' + err))
     };
 
 
