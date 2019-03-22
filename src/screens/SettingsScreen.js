@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {sendNoiseDataToServer} from "../utilities";
 import CreateAccountModal from '../components/Account/CreateAccountModal';
 import LoginModal from "../components/Account/LoginModal";
 import { Text, View, Switch } from 'native-base';
@@ -88,7 +87,6 @@ class SettingsScreen extends Component {
     render() {
         return (
             <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-                <Text> {this.state.darkThemeToggle.valueOf()} </Text>
                 <Text>Settings SCREEN</Text>
                 <CreateAccountModal/>
                 <LoginModal/>
