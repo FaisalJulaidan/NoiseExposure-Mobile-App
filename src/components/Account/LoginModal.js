@@ -53,7 +53,8 @@ Validation = () => {
                             </TextInput>
 
                             <Button title={"Log In"}
-                                    onPress={this.Validation}/>
+                                    onPress={this.Validation}
+                                    style= {styles.LoginButton}/>
 
 
                             <Button
@@ -76,11 +77,11 @@ Validation = () => {
     }
 }
 
-// const styles = StyleSheet.create({
-//     LoginButton:{
-//         color: '#176381'
-//
-//     }
-// })
+const styles = StyleSheet.create({
+    LoginButton:{
+        color: 'red'
+
+    }
+})
 
 export default LoginModal
