@@ -7,10 +7,6 @@ class DetailsScreen extends Component {
         descriptions: ''
     };
 
-    updateType = (type) => {
-        this.setState({type : type })
-    };
-
     onPass = () => {
         ToastAndroid.show('Successfully Added!', ToastAndroid.SHORT)
     };
@@ -24,29 +20,31 @@ class DetailsScreen extends Component {
                 <View style={styles.pickerStyle}>
                     <Picker
                         selectedValue={this.state.type}
-                        onValueChange={this.updateType}>
-                        <Picker.item
+                        onValueChange={(itemValue, itemIndex) =>
+                            this.setState({type: itemValue})
+                        }>
+                        <Picker.Item
                         label = "Construction"
                         value = "Construction" />
-                        <Picker.item
+                        <Picker.Item
                         label = "Traffic"
                         value = "Traffic" />
-                        <Picker.item
+                        <Picker.Item
                         label = "Transportation"
                         value = "Transportation" />
-                        <Picker.item
+                        <Picker.Item
                         label = "Wildlife/Nature"
                         value = "Wildlife/Nature" />
-                        <Picker.item
+                        <Picker.Item
                         label = "Sports Event"
                         value = "Sports Event" />
-                        <Picker.item
+                        <Picker.Item
                         label = "People"
                         value = "People" />
-                        <Picker.item
+                        <Picker.Item
                         label = "Industrial"
                         value = "Industrial" />
-                        <Picker.item
+                        <Picker.Item
                         label = "Other"
                         value = "Other" />
                     </Picker>
@@ -58,10 +56,8 @@ class DetailsScreen extends Component {
                         value={this.state.descriptions}
                         placeholder={"Enter Additional Information Here"}
                         maxLength = {200}
-                        multiline={true}
-                        fontSize={15}
-                        >
-                    </ TextInput>
+                        multiline={true}>
+                    </TextInput>
                 </View>
                 <View style={styles.addBtn}>
                     <Button
@@ -83,9 +79,8 @@ const styles = StyleSheet.create({
         left: '2%',
         right: '2%',
         width: '96%',
-        color: '#176381',
-        marginBottom: 5,
-        height: "40%"
+        marginBottom: '2%',
+        height: "35%"
     },
     addBtn: {
         width: '30%',
