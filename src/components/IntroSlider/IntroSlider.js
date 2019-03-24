@@ -6,28 +6,25 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const slides = [
     {
-        key: 'somethun',
-        title: 'Quick setup, good defaults',
-        text: 'React-native-app-intro-slider is easy to setup with a small footprint and no dependencies. And it comes with good default layouts!',
-        icon: 'ios-images-outline',
+        key: 'Welcome',
+        title: 'Welcome',
+        text: 'Be part of making out city quieter again',
         colors: '#63E2FF',
-        backgroundColor: '#59b2ab',
+        image: require('./assets/cardiff_council_logo.jpg'),
     },
     {
-        key: 'somethun1',
-        title: 'Super customizable',
-        text: 'The component is also super customizable, so you can adapt it to cover your needs and wants.',
-        icon: 'ios-options-outline',
+        key: 'Microphone',
+        title: 'Microphone',
+        text: 'We need to access your microphone to measure noise levels around you.',
         colors: '#A3A1FF',
-        backgroundColor: '#59b2ab',
+        image: require('./assets/microphone.png'),
     },
     {
-        key: 'somethun2',
-        title: 'No need to buy me beer',
-        text: 'Usage is all free',
-        icon: 'ios-beer-outline',
+        key: 'Location',
+        title: 'Location',
+        text: 'We also need to access your location to help us relate noise levels in different areas of the city.',
         colors: '#29ABE2',
-        backgroundColor: '#59b2ab',
+        image: require('./assets/location_pin.png'),
     },
 ];
 
@@ -40,11 +37,24 @@ export default class IntroSlider extends React.Component {
 
     renderItem = (item) => {
         return (
-            <View style={styles.mainContent}>
-                <Text style={styles.title}>{item.title}</Text>
-                <Image source={item.image} />
-                <Text style={styles.text}>{item.text}</Text>
+
+            <View style={[styles.slide, {
+                paddingTop: item.topSpacer,
+                paddingBottom: item.bottomSpacer,
+                width: item.width,
+                height: item.height
+                }]}
+            >
+
+                <View style={styles.mainContent}>
+                    <Text style={styles.title}>{item.title}</Text>
+                    <Image style={styles.image} source={item.image} />
+                    <Text style={styles.text}>{item.text}</Text>
+                    {/*<Text style={styles.text}>{item.width}</Text>*/}
+                </View>
+
             </View>
+
         );
     };
 
@@ -86,34 +96,58 @@ export default class IntroSlider extends React.Component {
                 renderItem={this.renderItem}
                 slides={slides}
                 onDone={this.onDone}
-                renderDoneButton={this.renderDoneButton}
-                renderNextButton={this.renderNextButton}
+                bottomButton
+                buttonStyle={styles.bottomBtn}
+                activeDotStyle={styles.activeDot}
+                dotStyle={styles.dot}
+                paginationStyle={styles.pagination}
             />;
     }
 }
 
 const styles = StyleSheet.create({
     slide: {
-
+        alignItems: 'center',
+        backgroundColor: '#F5F5F5',
     },
     mainContent: {
-        flex: 1,
+        width: '80%',
+        height: '70%',
+        padding: 30,
+        marginTop: 50,
         alignItems: 'center',
         justifyContent: 'space-around',
-        backgroundColor: '#018a99',
+        backgroundColor: 'white',
+    },
+
+    bottomBtn: {
+        marginTop: 40,
+        backgroundColor: '#176381',
+    },
+
+    pagination: {
+        fontSize: 2
+    },
+
+    dot: {
+        backgroundColor:'#A8ABAC',
+
+    },
+
+    activeDot: {
+        backgroundColor:'#176381',
     },
 
     text: {
-        // color: 'rgba(255, 255, 255, 0.8)',
-        backgroundColor: 'transparent',
+        color: '#176381',
         textAlign: 'center',
-        paddingHorizontal: 16,
+        // paddingHorizontal: 20,
     },
 
     title: {
-        fontSize: 22,
-        // color: 'white',
-        backgroundColor: 'transparent',
+        color: '#176381',
+        fontSize: 28,
+        fontWeight: 'bold',
         textAlign: 'center',
         marginBottom: 16,
     },
@@ -128,7 +162,7 @@ const styles = StyleSheet.create({
     },
 
     image: {
-        width: 320,
-        height: 320,
+        width: 160,
+        height: 160,
     }
 });
