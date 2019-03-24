@@ -48,7 +48,31 @@ export default class IntroSlider extends React.Component {
         );
     };
 
-    
+    renderNextButton = () => {
+        return (
+            <View style={styles.buttonCircle}>
+                <Ionicons
+                    name="md-arrow-round-forward"
+                    color="rgba(255, 255, 255, .9)"
+                    size={24}
+                    style={{ backgroundColor: 'transparent' }}
+                />
+            </View>
+        );
+    };
+
+    renderDoneButton = () => {
+        return (
+            <View style={styles.buttonCircle}>
+                <Ionicons
+                    name="md-checkmark"
+                    color="rgba(255, 255, 255, .9)"
+                    size={24}
+                    style={{ backgroundColor: 'transparent' }}
+                />
+            </View>
+        );
+    };
 
     onDone = () => {
         // User finished the introduction. Show real app through
