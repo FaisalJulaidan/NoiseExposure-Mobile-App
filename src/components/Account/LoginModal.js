@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import {Modal, Text, View, Button, TextInput, Alert, StyleSheet} from 'react-native';
+import {Alert, Modal, StyleSheet, View} from 'react-native';
 import {validateUserDetails} from "../../utilities";
+import {Button, Form, Icon, Input, Item, Label, Text} from 'native-base';
 
 
 class LoginModal extends Component {
@@ -35,33 +36,43 @@ Validation = () => {
                     animationType="fade"
                     transparent={false}
                     visible={this.state.modalVisible}>
-                    <View style={{marginTop: 22}}>
+                    <View style={{margin: 22}}>
                         <View>
+                                <Form>
+                                    <Item floatingLabel>
+                                        <Label>Email</Label>
+                                        <Input
+                                            onChangeText={(Email) => this.setState({Email})}
+                                            value={this.state.Email}
+                                        />
+
+                                    </Item>
+                                    <Item floatingLabel>
+                                        <Label>Password</Label>
+                                        <Input
+                                            onChangeText={(Password) => this.setState({Password})}
+                                            value={this.state.Password}
+                                        />
+                                    </Item>
+                                </Form>
+
+                                <Button block dark
+                                        onPress={this.Validation}
+                                        style= {styles.LoginButton}>
+                                    <Icon name='md-log-in'/>
+                                    <Text>Log In</Text>
+                                </Button>
 
 
-                            <TextInput
-                            onChangeText={(Email) => this.setState({Email})}
-                            value={this.state.Email}
-                            placeholder={"Enter Email Here"}>
-                            </TextInput>
 
-
-                            <TextInput
-                            onChangeText={(Password) => this.setState({Password})}
-                            value={this.state.Password}
-                            placeholder={"Enter Password Here"}>
-                            </TextInput>
-
-                            <Button title={"Log In"}
-                                    onPress={this.Validation}
-                                    style= {styles.LoginButton}/>
-
-
-                            <Button
-                                onPress={() => {
-                                    this.setModalVisible(!this.state.modalVisible);
-                                }} title={"Cancel"}
-                            />
+                                <Button block primary
+                                        onPress={() => {
+                                            this.setModalVisible(!this.state.modalVisible);
+                                        }}
+                                        style= {styles.LoginButton}>
+                                    <Icon name='ios-close-circle-outline'/>
+                                    <Text>Cancel</Text>
+                                </Button>
                         </View>
                     </View>
                 </Modal>
@@ -70,7 +81,10 @@ Validation = () => {
                 <Button
                     onPress={() => {
                         this.setModalVisible(true);
-                    }} title={"Login"}>
+                    }}>
+                    <Icon name='md-log-in'/>
+                    <Text>Log In</Text>
+
                 </Button>
             </View>
         );
@@ -79,9 +93,10 @@ Validation = () => {
 
 const styles = StyleSheet.create({
     LoginButton:{
-        color: 'red'
+        color: 'red',
+        padding: 10
 
     }
-})
+});
 
 export default LoginModal

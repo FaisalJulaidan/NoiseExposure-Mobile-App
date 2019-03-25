@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
-import { Text, View } from 'native-base';
-import { Button } from 'react-native';
+import React, {Component} from 'react';
+import {Button, Icon, Text, View} from 'native-base';
 import {sendNoiseDataToServer} from "../utilities";
 import CreateAccountModal from '../components/Account/CreateAccountModal';
 import LoginModal from "../components/Account/LoginModal";
@@ -41,9 +40,12 @@ class SettingsScreen extends Component {
                 <LoginModal/>
                 <Button
                     onPress={this.sendDataToServer}
-                    title="Sync Data"
                     disabled={this.state.userLoggedIn}
-                />
+                >
+                    <Icon name={'md-sync'}/>
+                    <Text>Sync Data</Text>
+                </Button>
+
             </View>
         );
     }
