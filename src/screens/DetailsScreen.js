@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {StyleSheet, TextInput, Text, View, Picker, Button, ToastAndroid } from 'react-native';
+import { Header } from 'native-base';
 
 class DetailsScreen extends Component {
     state = {
@@ -10,12 +11,25 @@ class DetailsScreen extends Component {
     onPass = () => {
         ToastAndroid.show('Successfully Added!', ToastAndroid.SHORT)
     };
+    onRetrieve = () => {
+
+    };
     render() {
         return (
             <View>
+                <Header style={styles.header}/>
                 <Text style={styles.headingText}>Noise Details</Text>
-                <Text style={styles.normalText}>Here you can enter information relating to a specific noise level.</Text>
-
+                <Text style={styles.normalText}>You can add some extra detail to the last collected noise source here.</Text>
+                <View style={{flexDirection: 'column'}}>
+                    <Text style={styles.dataText}>Current Noise Level: </Text>
+                    <Text style={styles.dataText}>Current Location: </Text>
+                </View>
+                <View style={styles.addBtn}>
+                    <Button
+                        color={'#176381'}
+                        title={"Retrieve"}>
+                    </Button>
+                </View>
                 <Text style={styles.optionText}>Noise Type: </Text>
                 <View style={styles.pickerStyle}>
                     <Picker
@@ -23,6 +37,9 @@ class DetailsScreen extends Component {
                         onValueChange={(itemValue, itemIndex) =>
                             this.setState({type: itemValue})
                         }>
+                        <Picker.Item
+                        label = "Please select an option ..."
+                        value = "option" />
                         <Picker.Item
                         label = "Construction"
                         value = "Construction" />
@@ -80,7 +97,7 @@ const styles = StyleSheet.create({
         right: '2%',
         width: '96%',
         marginBottom: '2%',
-        height: "35%"
+        height: "22%"
     },
     addBtn: {
         width: '30%',
@@ -88,23 +105,31 @@ const styles = StyleSheet.create({
         left: '65%'
     },
     headingText: {
-        fontSize: 30,
+        fontSize: 25,
         fontWeight: 'bold',
         color: 'black',
         marginLeft: '2%',
-        marginBottom: '3%'  
+        marginBottom: '1%'  
     },
     optionText: {
-        fontSize: 20,
+        fontSize: 15,
         color: 'black',
         marginLeft: '2%',
         marginBottom: '2%'  
     },
     normalText: {
+        fontSize: 12,
+        color: 'black',
+        marginLeft: '2%',
+        marginRight: '2%',
+        marginBottom: '3%'  
+    },
+    dataText:{
         fontSize: 15,
         color: 'black',
         marginLeft: '2%',
-        marginBottom: '5%'  
+        fontWeight: 'bold',
+        marginBottom: '2%'
     },
     pickerStyle: {
         width: '96%',
@@ -113,5 +138,8 @@ const styles = StyleSheet.create({
         borderColor: '#176381',
         borderWidth: 2,
         marginBottom: '2%'
-    }
+    },
+    header: {
+        backgroundColor: '#018a99',
+    },
 })
