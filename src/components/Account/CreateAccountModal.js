@@ -1,5 +1,6 @@
-import React, { Component, Fragment } from 'react';
-import {Modal, Text, View, Button, StyleSheet, TextInput} from 'react-native';
+import React, {Component, Fragment} from 'react';
+import {Modal, StyleSheet, TextInput, View} from 'react-native';
+import {Button, Icon, Text} from "native-base";
 
 export default class LoginModal extends Component{
   state = {
@@ -40,21 +41,36 @@ export default class LoginModal extends Component{
                     value={this.state.password}
                     placeholder={"Enter Password here"}>
                 </TextInput>
-                <View style={styles.btnLayout}>
-                  <Button 
-                    onPress={this.closeLogin}
-                    title={"Close"}>
-                  </Button>
-                  <Button 
-                    onPress={this.closeLogin}
-                    title={"Create"}>
-                  </Button>
-                </View>
+                {/*<View style={styles.btnLayout}>*/}
+                  {/*<Button */}
+                    {/*onPress={this.closeLogin}*/}
+                    {/*title={"Close"}>*/}
+                  {/*</Button>*/}
+                  {/*<Button */}
+                    {/*onPress={this.closeLogin}*/}
+                    {/*title={"Create"}>*/}
+                  {/*</Button>*/}
+                {/*</View>*/}
+                <Button block primary
+                    onPress={this.closeLogin}>
+                  <Icon name='md-person-add' />
+                  <Text>Create</Text>
+                </Button>
+
+                <Button block primary
+                        onPress={this.closeLogin}>
+                  <Icon name='ios-close-circle-outline' />
+                  <Text>Close</Text>
+                </Button>
               </View>
             </Modal>
-            <Button 
-            onPress={this.openLogin}
-            title={"Create Account"}></Button>
+            <Button block primary
+                    onPress={this.openLogin}
+                    disabled={this.state.userLoggedIn}
+            >
+              <Icon name={'md-person-add'}/>
+              <Text>Create Account</Text>
+            </Button>
           </Fragment>    
         );
     }
@@ -65,12 +81,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 4,
-    borderColor: "#018a99",
     backgroundColor: 'white',
-    borderWidth: 2,
-    marginHorizontal: 60,
-    paddingTop: 0
   },
   heading: {
     color: '#018a99',

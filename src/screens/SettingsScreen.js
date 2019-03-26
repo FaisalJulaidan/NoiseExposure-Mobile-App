@@ -29,7 +29,6 @@ class SettingsScreen extends Component {
         super(props);
 
         this.state = {
-            noise: "_",
             userLoggedIn: false,
         };
         // asyncStorage.storeData(MAP_THEME_KEY, 'light').then((value) => {
@@ -112,8 +111,6 @@ class SettingsScreen extends Component {
                     </Header>
 
                     <Content style={{padding: 10}}>
-                        <Text> {this.state.noise} </Text>
-                        <Text>Settings SCREEN</Text>
                         <CreateAccountModal/>
                         <LoginModal/>
                         <Button block primary
