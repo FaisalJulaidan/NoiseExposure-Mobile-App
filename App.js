@@ -10,7 +10,24 @@ class App extends React.Component {
         isFirstLaunch: "yes"
     };
 
-  
+    componentWillMount() {
+        asyncStorage.retrieveData('isFirstLaunch').then((value) => {
+          this.setState({isFirstLaunch: value })
+        }).catch(error => {
+            // if error, it means this key doesn't exist so we set it for the first time below
+            // Note: asyncStorage only takes string
+            asyncStorage.storeData('isFirstLaunch', 'yes').then(value => value)
+                .catch(error => console.log("Couldn't set isFirstLaunch key in AsyncStorage"))
+        });
+
+    }
+
+    onFirstLaunchDone = () => {
+        console.log("onFirstLaunchDone");
+        asyncStorage.storeData('isFirstLaunch', 'no')
+            .then(value => this.setState({isFirstLaunch: value}))
+            .catch(error => console.log("Couldn't set isFirstLaunch key in AsyncStorage"))
+    };
 
     render() {
         console.log(this.state);
