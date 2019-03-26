@@ -77,7 +77,7 @@ Validation = () => {
                     </Modal>
 
 
-                    <Button primary
+                    <Button block primary
                             onPress={() => {
                                 this.setModalVisible(true);
                             }}>

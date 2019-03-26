@@ -13,9 +13,9 @@ import {
     Text,
     Title
 } from 'native-base';
-import {asyncStorage, MAP_THEME_KEY, sendNoiseDataToServer} from "../utilities";
 import CreateAccountModal from '../components/Account/CreateAccountModal';
 import LoginModal from "../components/Account/LoginModal";
+import {asyncStorage, MAP_THEME_KEY, sendNoiseDataToServer} from "../utilities";
 import getTheme from '../../native-base-theme/components';
 
 class SettingsScreen extends Component {
@@ -92,7 +92,8 @@ class SettingsScreen extends Component {
         else{
             return "Log out"
         }
-    }
+    };
+
     sendDataToServer = () => {
         sendNoiseDataToServer();
     };
@@ -115,13 +116,14 @@ class SettingsScreen extends Component {
                         <Text>Settings SCREEN</Text>
                         <CreateAccountModal/>
                         <LoginModal/>
-                        <Button primary
+                        <Button block primary
                                 onPress={this.sendDataToServer}
                                 disabled={this.state.userLoggedIn}
                         >
                             <Icon name={'md-sync'}/>
                             <Text>Sync Data</Text>
                         </Button>
+                        <Text>Enable Dark Theme Map (Change on App Restart)</Text>
                         <Switch
                             onValueChange = {this.changeMapTheme}
                             value = {this.state.darkThemeToggle}
