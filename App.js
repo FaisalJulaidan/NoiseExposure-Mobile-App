@@ -10,7 +10,8 @@ class App extends React.Component {
         isFirstLaunch: "yes"
     };
 
-   
+  
+
     render() {
         console.log(this.state);
         return this.state.isFirstLaunch === 'yes' ?
