@@ -4,12 +4,13 @@ export const MAP_THEME_KEY = 'Map-Theme';
 
 // request to Store data in local storage
 const storeData = async (key, value) => {
+    console.log("Set: ", key, value);
     try {
         await AsyncStorage.setItem(key, value);
         return Promise.resolve(value)
     } catch (error) {
         // Error saving data
-        console.log("key ser error : " + error);
+        console.log("key set error : " + error);
         return Promise.reject(error)
     }
 };
@@ -29,6 +30,7 @@ const retrieveData = async (key) => {
     } catch (error) {
         // Error retrieving data
         console.log("key set error : " + error);
+        return Promise.reject(error)
     }
 };
 

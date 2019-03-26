@@ -2,6 +2,8 @@ import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Permissions from 'react-native-permissions'
+
 
 
 const slides = [
@@ -15,27 +17,60 @@ const slides = [
     {
         key: 'Microphone',
         title: 'Microphone',
-        text: 'We need to access your microphone to measure noise levels around you.',
-        colors: '#A3A1FF',
+        permission:'microphonePermission',
+        text: 'We need to access your microphone and local storage to measure and store noise levels around you.',
         image: require('./assets/microphone.png'),
+    },
+    {
+        key: 'Storage',
+        title: 'Storage',
+        permission:'storagePermission',
+        text: 'We also need to access your location to help us relate noise levels in different areas of the city.',
+        image: require('./assets/storage.png'),
     },
     {
         key: 'Location',
         title: 'Location',
-        text: 'We also need to access your location to help us relate noise levels in different areas of the city.',
-        colors: '#29ABE2',
+        permission:'locationPermission',
+        text: 'Finally, we also need to access your location to help us relate noise levels in different areas of the city.',
         image: require('./assets/location_pin.png'),
     },
+
 ];
 
 export default class IntroSlider extends React.Component {
 
     state = {
-        showRealApp: false
+        microphonePermission: "unauthorized",
+        locationPermission: "unauthorized",
+        storagePermission: "unauthorized",
     };
 
 
+
+    componentWillMount() {
+        Permissions.checkMultiple(['location', 'microphone', 'storage']).then(response => {
+            //response is an object mapping type to permission
+                this.setState({
+                    locationPermission: response.location,
+                    microphonePermission: response.microphone,
+                    storagePermission: response.storage
+                }, () => this.forceUpdate());
+
+        })
+    }
+
+
     renderItem = (item) => {
+
+        // set dynamic color for the permission status text in each slide item.
+        // console.log(' RENDER ITEM!');
+        // console.log(this.state[item.permission]);
+
+        let permissionTextColor = 'red';
+        if (this.state[item.permission] === 'authorized')
+            permissionTextColor = 'green';
+
         return (
 
             <View style={[styles.slide, {
@@ -43,34 +78,69 @@ export default class IntroSlider extends React.Component {
                 paddingBottom: item.bottomSpacer,
                 width: item.width,
                 height: item.height
-                }]}
+            }]}
             >
 
                 <View style={styles.mainContent}>
                     <Text style={styles.title}>{item.title}</Text>
                     <Image style={styles.image} source={item.image} />
                     <Text style={styles.text}>{item.text}</Text>
-                    {/*<Text style={styles.text}>{item.width}</Text>*/}
-                </View>
 
+                    {/*{item.permission ?*/}
+                        {/*<Text style={{color: permissionTextColor, textAlign: 'center'}}>*/}
+                            {/*{this.state[item.permission]}!*/}
+                        {/*</Text> : null*/}
+                    {/*}*/}
+                </View>
             </View>
 
         );
     };
-    
+
+
+    onSlideChange = (index, lastIndex) => {
+
+        const {locationPermission, microphonePermission, storagePermission} = this.state;
+
+        // index 1 represents the microphone and storage slide
+        if(index === 1 && microphonePermission !== "authorized") {
+            Permissions.request('microphone').then(response => {
+                // Returns once the user has chosen to 'allow' or to 'deny' access
+                // Response is one of: 'authorized', 'denied', 'restricted', or 'undetermined'
+                this.setState({microphonePermission: response})
+            });
+        }
+
+        // index 2 represents the storage slide
+        else if (index === 2) {
+            if (storagePermission !== "authorized")
+                Permissions.request('storage').then(response => {
+                    this.setState({storagePermission: response})
+
+                });
+        }
+
+        // index 3 represents the location slide
+        else if (index === 3) {
+            if (locationPermission !== "authorized")
+                Permissions.request('location').then(response => {
+                    this.setState({locationPermission: response})
+                });
+        }
+    };
 
     onDone = () => {
-        // User finished the introduction. Show real app through
-        // navigation or simply by controlling state
-        this.setState({ showRealApp: true });
+       this.props.onFirstLaunchDone()
     };
 
 
     render() {
+        console.log(this.state);
             return <AppIntroSlider
                 renderItem={this.renderItem}
                 slides={slides}
                 onDone={this.onDone}
+                onSlideChange={this.onSlideChange}
                 bottomButton
                 buttonStyle={styles.bottomBtn}
                 activeDotStyle={styles.activeDot}
