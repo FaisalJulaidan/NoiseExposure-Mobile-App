@@ -1,31 +1,55 @@
 import React, { Component } from 'react';
 import {StyleSheet, TextInput, Text, View, Picker, Button, ToastAndroid } from 'react-native';
-import { Header } from 'native-base';
+import { Header, Left, Body, Title, Right } from 'native-base';
+import { retriveDataForAdditionalDetails } from '../database/schemas';
 
 class DetailsScreen extends Component {
     state = {
         type: '',
-        descriptions: ''
+        descriptions: '',
+        idNoise: '',
+        noise: '',
+        location: ''
     };
 
     onPass = () => {
+        this.setState({
+            idNoise: '',
+            noise: '',
+            location: '',
+        })
         ToastAndroid.show('Successfully Added!', ToastAndroid.SHORT)
     };
     onRetrieve = () => {
-
+        retriveDataForAdditionalDetails().then((noiseFirst) => {
+            this.setState({
+                idNoise: noiseFirst.id,
+                noise: noiseFirst.level,
+                location: noiseFirst.locationName
+            }).catch(error => {
+                console.log("error data not retrieved")
+            });
+            ToastAndroid.show('Successfully Retrieved!', ToastAndroid.SHORT)
+        })
     };
     render() {
         return (
             <View>
-                <Header style={styles.header}/>
-                <Text style={styles.headingText}>Noise Details</Text>
+                <Header noLeft>
+                        <Left/>
+                            <Body>
+                                <Title>Noise Details</Title>
+                            </Body>
+                        <Right />
+                </Header>
                 <Text style={styles.normalText}>You can add some extra detail to the last collected noise source here.</Text>
                 <View style={{flexDirection: 'column'}}>
-                    <Text style={styles.dataText}>Current Noise Level: </Text>
-                    <Text style={styles.dataText}>Current Location: </Text>
+                    <Text style={styles.dataText}>Current Noise Level: {this.state.noise} dB</Text>
+                    <Text style={styles.dataText}>Current Location: {this.state.location}</Text>
                 </View>
                 <View style={styles.addBtn}>
                     <Button
+                        onPress={this.onRetrieve}
                         color={'#176381'}
                         title={"Retrieve"}>
                     </Button>
@@ -118,7 +142,7 @@ const styles = StyleSheet.create({
         marginBottom: '2%'  
     },
     normalText: {
-        fontSize: 12,
+        fontSize: 15,
         color: 'black',
         marginLeft: '2%',
         marginRight: '2%',

@@ -36,7 +36,24 @@ class NoiseHistory extends Component {
             timestamp: new Date(),
             longitude: 1000034.34,
             latitude: 200034.454,
-            // type: ''
+            type: '', 
+            details: '',
+            deviceModel: 'FJ3453',
+            severity: '1',
+            isPublic: false,
+            isSynced: false
+        }).then(value => this.reloadData()).catch(error => console.log(error));
+        this.reloadData();
+
+        insertNoise({
+            // id: 1, // auto generated
+            level: 56,
+            locationName: 'Sailsbury Road',
+            timestamp: new Date(),
+            longitude: -3.173425,
+            latitude: 51.48675,
+            type: 'Traffic',
+            details: 'Heavy traffic caused by Tesco Lorry unloading',
             deviceModel: 'FJ3453',
             severity: '1',
             isPublic: false,

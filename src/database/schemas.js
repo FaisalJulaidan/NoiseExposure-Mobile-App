@@ -14,6 +14,7 @@ export const NoiseSchema = {
         longitude: 'double',
         latitude: 'double',
         type: 'string?',
+        details: 'string?',
         deviceModel: 'string',
         severity: 'string',
         isPublic: 'bool',
@@ -63,6 +64,14 @@ export const  setAllSyncedItemsAsSynced = (syncedRows) => new Promise((resolve, 
                 realm.create(NOISE_SCHEMA, {id: syncedRows[j].id, isSynced: true}, true);
             }
         });
+    }).catch(error => reject(error))
+});
+
+export const retriveDataForAdditionalDetails = () => new Promise((resolve, reject) => {
+    Realm.open(databaseOptions).then(realm => {
+        let sortedNoiseList = realm.objects(NOISE_SCHEMA).filtered('details = ""')
+            .sorted('timestamp', true)
+        resolve(sortedNoiseList[0])
     }).catch(error => reject(error))
 });
 
