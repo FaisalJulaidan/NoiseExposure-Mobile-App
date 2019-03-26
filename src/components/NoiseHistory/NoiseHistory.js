@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {StyleSheet} from 'react-native';
-import {Container, Content, Header, List} from 'native-base';
+import {Container, Content, Header, List, StyleProvider} from 'native-base';
 
 import realm, {insertNoise, queryAllNoise} from '../../database/schemas';
 import NoiseItem from './NoiseItem/NoiseItem';
+import getTheme from "../../../native-base-theme/components";
 
 class NoiseHistory extends Component {
 
@@ -57,26 +58,28 @@ class NoiseHistory extends Component {
         const {noiseList} = this.state;
         console.log(realm.path);
         return (
-            <Container style={styles.container}>
-                <Header style={styles.header}/>
-                <Content>
-                    <List style={styles.list}>
-                        {noiseList.map((noise, index) => {
-                            return <NoiseItem key={index} noiseData={noise}/>
-                        })}
+            <StyleProvider  style={getTheme()}>
+                <Container style={styles.container}>
+                    <Header/>
+                    <Content>
+                        <List style={styles.list}>
+                            {noiseList.map((noise, index) => {
+                                return <NoiseItem key={index} noiseData={noise}/>
+                            })}
 
 
-                    </List>
-                </Content>
-            </Container>
+                        </List>
+                    </Content>
+                </Container>
+            </StyleProvider>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    // header: {
-    //     backgroundColor: '#018a99',
-    // },
+    header: {
+        backgroundColor: '#018a99'
+    },
     container: {
         margin: 0,
         paddingLeft: 0,
