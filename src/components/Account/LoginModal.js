@@ -1,8 +1,24 @@
 import React, {Component} from 'react';
 import {Alert, Modal, StyleSheet} from 'react-native';
 import {validateUserDetails} from "../../utilities";
-import {Button, Form, Icon, Input, Item, Label, StyleProvider, Text, View} from 'native-base';
+import {
+    Body,
+    Button,
+    Form,
+    Header,
+    Icon,
+    Input,
+    Item,
+    Label,
+    Left,
+    Right,
+    StyleProvider,
+    Text,
+    Title,
+    View
+} from 'native-base';
 import getTheme from '../../../native-base-theme/components';
+import CreateAccountModal from "./CreateAccountModal";
 
 
 class LoginModal extends Component {
@@ -38,16 +54,27 @@ Validation = () => {
                         transparent={false}
                         visible={this.state.modalVisible}>
                         <View style={{margin: 22}}>
+
+                            <Header noLeft style={styles.HeaderStyle}>
+                                <Left/>
+                                <Body>
+                                <Title>Login</Title>
+                                </Body>
+                                <Right />
+                            </Header>
+
                                 <Form>
-                                    <Item floatingLabel>
+                                    <Item floatingLabel
+                                          Style={styles.emailtext}>
                                         <Label>Email</Label>
                                         <Input
                                             onChangeText={(Email) => this.setState({Email})}
                                             value={this.state.Email}
                                         />
-
                                     </Item>
-                                    <Item floatingLabel>
+
+                                    <Item floatingLabel
+                                          style={styles.passwordtext}>
                                         <Label>Password</Label>
                                         <Input
                                             onChangeText={(Password) => this.setState({Password})}
@@ -69,10 +96,13 @@ Validation = () => {
                                         onPress={() => {
                                             this.setModalVisible(!this.state.modalVisible);
                                         }}
-                                        style= {styles.LoginButton}>
+                                        style= {styles.CancelButton}>
                                     <Icon name='ios-close-circle-outline'/>
                                     <Text>Cancel</Text>
                                 </Button>
+                            <Text style={styles.CreateAccountText}> Don't have an account? Create one here:</Text>
+                             <CreateAccountModal style={styles.CreateAccountButton}/>
+
                         </View>
                     </Modal>
 
@@ -92,10 +122,35 @@ Validation = () => {
 }
 
 const styles = StyleSheet.create({
-    LoginButton:{
-        color: 'red',
-        padding: 10
+    HeaderStyle:{
+      position: 'relative',
+        marginLeft: -22,
+        marginRight: -22,
+        marginTop: -22
 
+    },
+    LoginButton:{
+        position: 'relative',
+        marginTop: 20,
+    },
+    CancelButton:{
+        position: 'relative',
+    },
+    emailtext: {
+        position: 'relative',
+        padding: 20
+    },
+    passwordtext:{
+        position: 'relative',
+    },
+    CreateAccountButton:{
+        position: 'relative',
+    },
+    CreateAccountText:{
+        position: 'relative',
+        padding: 20,
+        marginLeft: 25,
+        color: '#018a99'
     }
 });
 
