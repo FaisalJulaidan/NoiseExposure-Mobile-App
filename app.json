@@ -1,4 +1,7 @@
 {
   "name": "NEA_Mobile",
-  "displayName": "NEA_Mobile"
+  "displayName": "NEA_Mobile",
+  "androidStatusBar": {
+    "backgroundColor": "#007481"
+  }
 }

@@ -1,5 +1,19 @@
-import React, { Component, Fragment } from 'react';
-import {Modal, Text, View, Button, StyleSheet, TextInput} from 'react-native';
+import React, {Component, Fragment} from 'react';
+import {Modal, StyleSheet} from 'react-native';
+import { Body,
+    Button,
+    Form,
+    Header,
+    Icon,
+    Input,
+    Item,
+    Label,
+    Left,
+    Right,
+    StyleProvider,
+    Text,
+    Title,
+    View} from "native-base";
 
 export default class LoginModal extends Component{
   state = {
@@ -24,38 +38,59 @@ export default class LoginModal extends Component{
               onRequestClose={this.closeLogin}
               transparent={true}>
               <View style={styles.modalContainer}>
-                <Text style={styles.heading}>Create Account</Text>
-                <Text style={styles.disclaimer}>Disclaimer: You are required to have an account to make data public.</Text>
-                
-                <Text>Email:</Text>
-                <TextInput
-                    onChangeText={(email) => this.setState({email})}
-                    value={this.state.email}
-                    placeholder={"Enter Email here"}>
-                </TextInput>
-                
-                <Text>Password:</Text>
-                <TextInput
-                    onChangeText={(password) => this.setState({password})}
-                    value={this.state.password}
-                    placeholder={"Enter Password here"}>
-                </TextInput>
-                <View style={styles.btnLayout}>
-                  <Button 
+                  <Header noLeft style={styles.HeaderStyle}>
+                      <Left/>
+                      <Body>
+                      <Title>Create Account</Title>
+                      </Body>
+                      <Right />
+                  </Header>
+                  <Form>
+                      <Item floatingLabel
+                            style={styles.InputsStyle}>
+                          <Label>Email</Label>
+                          <Input
+                              onChangeText={(Email) => this.setState({Email})}
+                              value={this.state.Email}
+                          />
+                      </Item>
+
+                      <Item floatingLabel
+                            style={styles.InputsStyle}>
+                          <Label>Password</Label>
+                          <Input
+                              onChangeText={(Password) => this.setState({Password})}
+                              value={this.state.Password}
+                          />
+                      </Item>
+                  </Form>
+                  <Text style={styles.disclaimer}>DISCLAIMER:
+                      You are required to have an account to make data public.</Text>
+
+
+                <Button block primary
                     onPress={this.closeLogin}
-                    title={"Close"}>
-                  </Button>
-                  <Button 
-                    onPress={this.closeLogin}
-                    title={"Create"}>
-                  </Button>
-                </View>
+                    style={styles.CreateAccountButton}>
+                  <Icon name='md-person-add' />
+                  <Text>Create</Text>
+                </Button>
+
+                <Button block primary
+                        onPress={this.closeLogin}
+                        style={styles.CloseButton}>
+                  <Icon name='ios-close-circle-outline' />
+                  <Text>Close</Text>
+                </Button>
               </View>
             </Modal>
-            <Button 
-            onPress={this.openLogin}
-            title={"Create Account"}></Button>
-          </Fragment>    
+            <Button block primary
+                    onPress={this.openLogin}
+                    disabled={this.state.userLoggedIn}
+            >
+              <Icon name={'md-person-add'}/>
+              <Text>Create Account</Text>
+            </Button>
+          </Fragment>
         );
     }
 }
@@ -63,28 +98,32 @@ export default class LoginModal extends Component{
 const styles = StyleSheet.create({
   modalContainer: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 4,
-    borderColor: "#018a99",
+    justifyContent: "flex-start",
     backgroundColor: 'white',
-    borderWidth: 2,
-    marginHorizontal: 60,
-    paddingTop: 0
-  },
-  heading: {
-    color: '#018a99',
-    fontSize: 20,
-    marginTop: 5,
   },
   disclaimer: {
     color: '#018a99',
-    fontSize: 10,
-    left: 5,
-    marginTop: 15
+    fontSize: 15,
+      fontWeight: 'bold',
+      fontStyle: 'italic',
+    marginTop: 15,
+      marginLeft: 22,
+      marginRight: 22,
+      textAlign: 'center'
   },
-  btnLayout: {
-    flexDirection:'row',
-    marginLeft: 10
-  }
+    CreateAccountButton:{
+        position: 'relative',
+        marginTop: 20,
+        marginLeft: 22,
+        marginRight: 22
+    },
+    CloseButton:{
+        marginLeft: 22,
+        marginRight: 22
+    },
+    InputsStyle: {
+        marginLeft: 22,
+        marginRight: 22
+    }
+
 })

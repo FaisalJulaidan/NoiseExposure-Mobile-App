@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {StyleSheet} from 'react-native';
-import { Container, Header, Content, List, Text } from 'native-base';
+import {Container, Content, Header, List, StyleProvider} from 'native-base';
 
-import {queryAllNoise, insertNoise} from '../../database/schemas';
+import realm, {insertNoise, queryAllNoise} from '../../database/schemas';
 import NoiseItem from './NoiseItem/NoiseItem';
-import realm from '../../database/schemas';
+import getTheme from "../../../native-base-theme/components";
 
 class NoiseHistory extends Component {
 
@@ -16,8 +16,8 @@ class NoiseHistory extends Component {
                     level: 60.5,
                     locationName: 'Queen Street',
                     timestamp: new Date(),
-                    longitude: 1000034.34,
-                    latitude: 200034.454,
+                    longitude: -3.17526,
+                    latitude: 51.4821,
                     // type: ''
                     deviceModel: 'FJ3453',
                     severity: '1',
@@ -58,25 +58,27 @@ class NoiseHistory extends Component {
         const {noiseList} = this.state;
         console.log(realm.path);
         return (
-            <Container style={styles.container}>
-                <Header style={styles.header}/>
-                <Content>
-                    <List style={styles.list}>
-                        {noiseList.map((noise, index) => {
-                            return <NoiseItem key={index} noiseData={noise}/>
-                        })}
+            <StyleProvider  style={getTheme()}>
+                <Container style={styles.container}>
+                    <Header/>
+                    <Content>
+                        <List style={styles.list}>
+                            {noiseList.map((noise, index) => {
+                                return <NoiseItem key={index} noiseData={noise}/>
+                            })}
 
 
-                    </List>
-                </Content>
-            </Container>
+                        </List>
+                    </Content>
+                </Container>
+            </StyleProvider>
         );
     }
 }
 
 const styles = StyleSheet.create({
     header: {
-        backgroundColor: '#018a99',
+        backgroundColor: '#018a99'
     },
     container: {
         margin: 0,
