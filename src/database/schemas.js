@@ -38,6 +38,17 @@ export const insertNoise = newNoise => new Promise((resolve, reject) => {
     }).catch(error => reject(error))
 });
 
+export const updateTypeAndDetails = (idNoise, type, description) => new Promise ((resolve, reject) => {
+    //console.log(type, description, idNoise)
+    Realm.open(databaseOptions).then(realm => {
+        realm.write(() => {
+            realm.create(NOISE_SCHEMA, {id: idNoise, type: type, details: description}, true)
+            resolve(idNoise, type, description)
+            //console.log(sortedNoiseList[0])
+        })
+    }).catch(error => reject(error))
+});
+
 export const queryAllNoise = () => new Promise((resolve, reject) => {
     Realm.open(databaseOptions).then(realm => {
         // return all noise data sorted by timestamp
@@ -72,6 +83,7 @@ export const retriveDataForAdditionalDetails = () => new Promise((resolve, rejec
         let sortedNoiseList = realm.objects(NOISE_SCHEMA).filtered('details = ""')
             .sorted('timestamp', true)
         resolve(sortedNoiseList[0])
+        console.log(sortedNoiseList[0])
     }).catch(error => reject(error))
 });
 

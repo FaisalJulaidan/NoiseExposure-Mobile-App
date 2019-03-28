@@ -18,7 +18,8 @@ class NoiseHistory extends Component {
                     timestamp: new Date(),
                     longitude: 1000034.34,
                     latitude: 200034.454,
-                    // type: ''
+                    type: '',
+                    details: '',
                     deviceModel: 'FJ3453',
                     severity: '1',
                     isPublic: false,
@@ -42,8 +43,22 @@ class NoiseHistory extends Component {
             severity: '1',
             isPublic: false,
             isSynced: false
-        }).then(value => this.reloadData()).catch(error => console.log(error));
-        this.reloadData();
+        }).then().catch(error => console.log(error));
+
+        insertNoise({
+            // id: 1, // auto generated
+            level: 64,
+            locationName: 'National Software Academy',
+            timestamp: new Date(),
+            longitude: -2.998051,
+            latitude: 51.589775,
+            type: '', 
+            details: '',
+            deviceModel: 'iPhone 8',
+            severity: '1',
+            isPublic: false,
+            isSynced: false
+        }).then().catch(error => console.log(error));
 
         insertNoise({
             // id: 1, // auto generated
@@ -58,7 +73,7 @@ class NoiseHistory extends Component {
             severity: '1',
             isPublic: false,
             isSynced: false
-        }).then(value => this.reloadData()).catch(error => console.log(error));
+        }).then().catch(error => console.log(error));
         this.reloadData();
     }
 

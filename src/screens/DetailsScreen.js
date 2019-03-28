@@ -1,31 +1,36 @@
 import React, { Component } from 'react';
 import {StyleSheet, TextInput, Text, View, Picker, Button, ToastAndroid } from 'react-native';
 import { Header, Left, Body, Title, Right } from 'native-base';
-import { retriveDataForAdditionalDetails } from '../database/schemas';
+import { retriveDataForAdditionalDetails, updateTypeAndDetails } from '../database/schemas';
 
 class DetailsScreen extends Component {
     state = {
         type: '',
-        descriptions: '',
+        description: '',
         idNoise: '',
         noise: '',
         location: ''
     };
-
     onPass = () => {
+        const {type, description, idNoise} = this.state
+        updateTypeAndDetails(idNoise, type, description);
         this.setState({
             idNoise: '',
             noise: '',
             location: '',
-        })
-        ToastAndroid.show('Successfully Added!', ToastAndroid.SHORT)
+            type: '',
+            description: ''
+        });
+        ToastAndroid.show('Successfully Added!', ToastAndroid.SHORT);
     };
     onRetrieve = () => {
         retriveDataForAdditionalDetails().then((noiseFirst) => {
             this.setState({
                 idNoise: noiseFirst.id,
                 noise: noiseFirst.level,
-                location: noiseFirst.locationName
+                location: noiseFirst.locationName,
+                type: noiseFirst.type,
+                description: noiseFirst.details
             }).catch(error => {
                 console.log("error data not retrieved")
             });
@@ -46,6 +51,9 @@ class DetailsScreen extends Component {
                 <View style={{flexDirection: 'column'}}>
                     <Text style={styles.dataText}>Current Noise Level: {this.state.noise} dB</Text>
                     <Text style={styles.dataText}>Current Location: {this.state.location}</Text>
+                    <Text style={styles.dataText}>ID: {this.state.idNoise}</Text>
+                    <Text style={styles.dataText}>Type: {this.state.type}</Text>
+                    <Text style={styles.dataText}>Dets: {this.state.description}</Text>
                 </View>
                 <View style={styles.addBtn}>
                     <Button
@@ -93,8 +101,8 @@ class DetailsScreen extends Component {
                 <Text style={styles.optionText}>Additional Details: </Text>
                 <View style={styles.addDetails}>
                     <TextInput
-                        onChangeText={(descriptions) => this.setState({descriptions})}
-                        value={this.state.descriptions}
+                        onChangeText={(description) => this.setState({description})}
+                        value={this.state.description}
                         placeholder={"Enter Additional Information Here"}
                         maxLength = {200}
                         multiline={true}>
@@ -121,7 +129,7 @@ const styles = StyleSheet.create({
         right: '2%',
         width: '96%',
         marginBottom: '2%',
-        height: "22%"
+        height: "10%"
     },
     addBtn: {
         width: '30%',
