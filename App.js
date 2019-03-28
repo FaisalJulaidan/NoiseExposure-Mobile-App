@@ -1,58 +1,41 @@
-import React from 'react';
-import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import React  from 'react';
+import Navigator from './src/screens/Navigator'
+import IntroSlider from './src/components/IntroSlider/IntroSlider'
+import {asyncStorage, MAP_THEME_KEY} from './src/utilities';
 
-// Pages Imports
-import HomeScreen from './src/screens/HomeScreen.js';
-import HistoryScreen from './src/screens/HistoryScreen.js';
-import SettingsScreen from './src/screens/SettingsScreen.js';
-import DetailsScreen from './src/screens/DetailsScreen.js';
-
-const TabNavigator = createBottomTabNavigator({
-    // Pages for Navigation Bar
-    Home: HomeScreen,
-    "Details Screen": DetailsScreen,
-    "History Screen" : HistoryScreen,
-    Settings: SettingsScreen,
-},
-{
-    // Navigation Styles
-    defaultNavigationOptions: ({ navigation }) => ({
-        tabBarIcon: ({ focused, horizontal, tintColor }) => {
-            // Icon Styling
-            const { routeName } = navigation.state;
-            let IconComponent = Ionicons;
-            let iconName;
-            if (routeName === 'Home') {
-                iconName = `md-mic`;
-            } else if (routeName === 'Details Screen') {
-                iconName = `md-create`;
-            } else if (routeName === 'History Screen') {
-                iconName = `ios-time`;
-            } else if (routeName === 'Settings') {
-                iconName = `ios-settings`;
-            }
-            // You can return any component that you like here!
-            return <IconComponent name={iconName} size={25} color={tintColor} margin={100} />;
-        },
-
-    }),
-    // Tab Bar Styling
-    tabBarOptions: {
-        labelStyle: {
-            paddingBottom: 6,
-        },
-        style: {
-            backgroundColor: '#018a99',
-            height: 62,
-        },
-        activeTintColor: '#ffffff',
-        inactiveTintColor: '#c2c2c2',
-    },
-});
-
-export default createAppContainer(TabNavigator);
+class App extends React.Component {
 
 
+    state = {
+        isFirstLaunch: "yes"
+    };
 
+    componentWillMount() {
+        asyncStorage.retrieveData('isFirstLaunch').then((value) => {
+          this.setState({isFirstLaunch: value })
+        }).catch(error => {
+            // if error, it means this key doesn't exist so we set it for the first time below
+            // Note: asyncStorage only takes string
+            asyncStorage.storeData('isFirstLaunch', 'yes').then(value => value)
+                .catch(error => console.log("Couldn't set isFirstLaunch key in AsyncStorage"))
+        });
 
+    }
+
+    onFirstLaunchDone = () => {
+        console.log("onFirstLaunchDone");
+        asyncStorage.storeData('isFirstLaunch', 'no')
+            .then(value => this.setState({isFirstLaunch: value}))
+            .catch(error => console.log("Couldn't set isFirstLaunch key in AsyncStorage"))
+    };
+
+    render() {
+        console.log(this.state);
+        return this.state.isFirstLaunch === 'yes' ?
+            <IntroSlider onFirstLaunchDone={this.onFirstLaunchDone}/>
+                :
+            <Navigator/>;
+    }
+}
+
+export default App

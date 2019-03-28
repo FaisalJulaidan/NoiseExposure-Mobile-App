@@ -14,7 +14,7 @@ export default class NoiseLevel extends Component{
     
     //https://www.npmjs.com/package/react-native-sound-level
     componentDidMount() {
-        RNSoundLevel.start()
+        RNSoundLevel.start();
         RNSoundLevel.onNewFrame = (data) => {
             // insertNoise({
             //     // id: 1, // auto generated
