@@ -13,7 +13,7 @@ class DetailsScreen extends Component {
     };
     onPass = () => {
         const {type, description, idNoise} = this.state
-        updateTypeAndDetails(idNoise, type, description);
+        updateTypeAndDetails(idNoise, type, description).then(() => this.props.reloadNoiseData());
         this.setState({
             idNoise: '',
             noise: '',
@@ -51,9 +51,6 @@ class DetailsScreen extends Component {
                 <View style={{flexDirection: 'column'}}>
                     <Text style={styles.dataText}>Current Noise Level: {this.state.noise} dB</Text>
                     <Text style={styles.dataText}>Current Location: {this.state.location}</Text>
-                    <Text style={styles.dataText}>ID: {this.state.idNoise}</Text>
-                    <Text style={styles.dataText}>Type: {this.state.type}</Text>
-                    <Text style={styles.dataText}>Dets: {this.state.description}</Text>
                 </View>
                 <View style={styles.addBtn}>
                     <Button
@@ -78,6 +75,9 @@ class DetailsScreen extends Component {
                         <Picker.Item
                         label = "Traffic"
                         value = "Traffic" />
+                        <Picker.Item
+                        label = "Event"
+                        value = "Event" />
                         <Picker.Item
                         label = "Transportation"
                         value = "Transportation" />
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
         right: '2%',
         width: '96%',
         marginBottom: '2%',
-        height: "10%"
+        height: "22%"
     },
     addBtn: {
         width: '30%',

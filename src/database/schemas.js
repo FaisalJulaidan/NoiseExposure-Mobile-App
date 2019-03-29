@@ -44,7 +44,6 @@ export const updateTypeAndDetails = (idNoise, type, description) => new Promise 
         realm.write(() => {
             realm.create(NOISE_SCHEMA, {id: idNoise, type: type, details: description}, true)
             resolve(idNoise, type, description)
-            //console.log(sortedNoiseList[0])
         })
     }).catch(error => reject(error))
 });

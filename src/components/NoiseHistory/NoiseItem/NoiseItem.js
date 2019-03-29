@@ -24,7 +24,7 @@ class NoiseItem extends Component {
                 <Text note numberOfLines={1}>{noiseData.id}</Text>
                 <Text note numberOfLines={1}>Noise Type: {noiseData.type}</Text>
                 <Text note numberOfLines={3}>Additional Details: {noiseData.details}</Text>   
-                <Text note numberOfLines={1}>Seveity: {noiseData.severity}</Text>
+                <Text note numberOfLines={1}>Severity: {noiseData.severity}</Text>
 
                 </Body>
 

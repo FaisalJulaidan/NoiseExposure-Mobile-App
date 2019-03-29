@@ -10,6 +10,7 @@ class NoiseHistory extends Component {
 
     constructor(props) {
         super(props);
+
         this.state = {
             noiseList: [
                 {
@@ -73,28 +74,28 @@ class NoiseHistory extends Component {
             severity: '1',
             isPublic: false,
             isSynced: false
-        }).then().catch(error => console.log(error));
-        this.reloadData();
+        }).then(() => this.props.reloadNoiseData()).catch(error => console.log(error));
+
+
     }
 
-    reloadData = () => {
-        queryAllNoise().then((noiseList) => {
-            this.setState({noiseList})
-        }).catch(error => {
-            console.log("error in reloading noise history list", error);
-        });
-        console.log('reloadData')
-    };
+    // reloadData = () => {
+    //     queryAllNoise().then((noiseList) => {
+    //         this.setState({noiseList})
+    //     }).catch(error => {
+    //         console.log("error in reloading noise history list", error);
+    //     });
+    //     console.log('reloadData')
+    // };
 
     render() {
-        const {noiseList} = this.state;
-        console.log(realm.path);
+        console.log(this.props);
         return (
             <Container style={styles.container}>
                 <Header style={styles.header}/>
                 <Content>
                     <List style={styles.list}>
-                        {noiseList.map((noise, index) => {
+                        {this.props.noiseList.map((noise, index) => {
                             return <NoiseItem key={index} noiseData={noise}/>
                         })}
 
