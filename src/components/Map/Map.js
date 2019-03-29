@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, View} from 'react-native';
-import MapView from 'react-native-maps';
-import { Marker } from 'react-native-maps';
+import MapView, {Marker} from 'react-native-maps';
 import Location from "./Location";
 import NoiseLevel from "../NoiseLevel/NoiseLevel";
 import {asyncStorage, MAP_THEME_KEY} from "../../utilities";

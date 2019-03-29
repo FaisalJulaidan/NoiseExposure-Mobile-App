@@ -51,10 +51,7 @@ const Navigator = new createBottomTabNavigator({
         inactiveTintColor: '#c2c2c2',
     },
 });
-
-const ggg = createAppContainer(Navigator);
-console.log(ggg);
-export default ggg;
+export default createAppContainer(Navigator);
 
 
 

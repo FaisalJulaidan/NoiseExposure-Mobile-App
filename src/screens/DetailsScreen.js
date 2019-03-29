@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {StyleSheet, TextInput, Text, View, Picker, Button, ToastAndroid } from 'react-native';
-import { Header, Left, Body, Title, Right } from 'native-base';
+import { Container, Header, Left, Body, Title, Right } from 'native-base';
 import { retriveDataForAdditionalDetails, updateTypeAndDetails } from '../database/schemas';
 
 class DetailsScreen extends Component {
@@ -39,8 +39,8 @@ class DetailsScreen extends Component {
     };
     render() {
         return (
-            <View>
-                <Header noLeft>
+            <Container>
+                <Header noLeft style={styles.header}>
                         <Left/>
                             <Body>
                                 <Title>Noise Details</Title>
@@ -56,7 +56,7 @@ class DetailsScreen extends Component {
                     <Button
                         onPress={this.onRetrieve}
                         color={'#176381'}
-                        title={"Retrieve"}>
+                        title={"Retrieve Data"}>
                     </Button>
                 </View>
                 <Text style={styles.optionText}>Noise Type: </Text>
@@ -115,7 +115,7 @@ class DetailsScreen extends Component {
                         onPress={this.onPass}>
                     </Button>
                 </View>
-            </View>
+            </Container>
         );
     }
 }

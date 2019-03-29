@@ -1,9 +1,22 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
+import {
+    Body,
+    Button,
+    Container,
+    Content,
+    Header,
+    Icon,
+    Left,
+    Right,
+    StyleProvider,
+    Switch,
+    Text,
+    Title
+} from 'native-base';
 import CreateAccountModal from '../components/Account/CreateAccountModal';
 import LoginModal from "../components/Account/LoginModal";
-import { Text, View, Switch } from 'native-base';
-import {Button} from 'react-native';
 import {asyncStorage, MAP_THEME_KEY, sendNoiseDataToServer} from "../utilities";
+import getTheme from '../../native-base-theme/components';
 
 class SettingsScreen extends Component {
 
@@ -16,7 +29,6 @@ class SettingsScreen extends Component {
         super(props);
 
         this.state = {
-            noise: "_",
             userLoggedIn: false,
         };
         // asyncStorage.storeData(MAP_THEME_KEY, 'light').then((value) => {
@@ -79,29 +91,46 @@ class SettingsScreen extends Component {
         else{
             return "Log out"
         }
-    }
+    };
+
     sendDataToServer = () => {
         sendNoiseDataToServer();
     };
 
     render() {
         return (
-            <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-                <Text>Settings SCREEN</Text>
-                <CreateAccountModal/>
-                <LoginModal/>
-                <Button
-                    onPress={this.sendDataToServer()}
-                    title="Sync Data"
-                    disabled={this.state.userLoggedIn}
-                />
-                <Text>Enable Dark Theme For Map (Changes on Restart)</Text>
-                <Switch
-                    onValueChange = {this.changeMapTheme}
-                    value = {this.state.darkThemeToggle}
-                    disabled={this.state.asyncStorageNotLoaded}
-                />
-            </View>
+            <StyleProvider  style={getTheme()}>
+                {/*<View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>*/}
+                <Container>
+                    <Header noLeft>
+                        <Left/>
+                        <Body>
+                        <Title>Settings</Title>
+                        </Body>
+                        <Right />
+                    </Header>
+
+                    <Content style={{padding: 10}}>
+                        <CreateAccountModal/>
+                        <LoginModal/>
+                        <Button block primary
+                                onPress={this.sendDataToServer}
+                                disabled={this.state.userLoggedIn}
+                        >
+                            <Icon name={'md-sync'}/>
+                            <Text>Sync Data</Text>
+                        </Button>
+                        <Text>Enable Dark Theme Map (Change on App Restart)</Text>
+                        <Switch
+                            onValueChange = {this.changeMapTheme}
+                            value = {this.state.darkThemeToggle}
+                            disabled={this.state.asyncStorageNotLoaded}
+                        />
+                    </Content>
+
+                </Container>
+            </StyleProvider>
+
         );
     }
 }
