@@ -1,31 +1,15 @@
 import React, {Component} from 'react';
 import {StyleSheet} from 'react-native';
-import {Container, Content, Header, List, StyleProvider} from 'native-base';
+import {Container, Content, List, Header, Left, Right, Body, Title} from 'native-base';
 
 import realm, {insertNoise, queryAllNoise} from '../../database/schemas';
 import NoiseItem from './NoiseItem/NoiseItem';
-import getTheme from "../../../native-base-theme/components";
 
 class NoiseHistory extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            noiseList: [
-                {
-                    level: 60.5,
-                    locationName: 'Queen Street',
-                    timestamp: new Date(),
-                    longitude: -3.17526,
-                    latitude: 51.4821,
-                    // type: ''
-                    deviceModel: 'FJ3453',
-                    severity: '1',
-                    isPublic: false,
-                    isSynced: false
-                }
-            ]
-        }
+        this.state = {}
     }
 
     componentWillMount() {
@@ -36,42 +20,75 @@ class NoiseHistory extends Component {
             timestamp: new Date(),
             longitude: 1000034.34,
             latitude: 200034.454,
-            // type: ''
+            type: '', 
+            details: '',
             deviceModel: 'FJ3453',
             severity: '1',
             isPublic: false,
             isSynced: false
-        }).then(value => this.reloadData()).catch(error => console.log(error));
-        this.reloadData();
+        }).then().catch(error => console.log(error));
+
+        insertNoise({
+            // id: 1, // auto generated
+            level: 64,
+            locationName: 'National Software Academy',
+            timestamp: new Date(),
+            longitude: -2.998051,
+            latitude: 51.589775,
+            type: '', 
+            details: '',
+            deviceModel: 'iPhone 8',
+            severity: '1',
+            isPublic: false,
+            isSynced: false
+        }).then().catch(error => console.log(error));
+
+        insertNoise({
+            // id: 1, // auto generated
+            level: 56,
+            locationName: 'Sailsbury Road',
+            timestamp: new Date(),
+            longitude: -3.173425,
+            latitude: 51.48675,
+            type: 'Traffic',
+            details: 'Heavy traffic caused by Tesco Lorry unloading',
+            deviceModel: 'FJ3453',
+            severity: '1',
+            isPublic: false,
+            isSynced: false
+        }).then(() => this.props.reloadNoiseData()).catch(error => console.log(error));
+
+
     }
 
-    reloadData = () => {
-        queryAllNoise().then((noiseList) => {
-            this.setState({noiseList})
-        }).catch(error => {
-            console.log("error in reloading noise history list", error);
-        });
-        console.log('reloadData')
-    };
+    // reloadData = () => {
+    //     queryAllNoise().then((noiseList) => {
+    //         this.setState({noiseList})
+    //     }).catch(error => {
+    //         console.log("error in reloading noise history list", error);
+    //     });
+    //     console.log('reloadData')
+    // };
 
     render() {
-        const {noiseList} = this.state;
-        console.log(realm.path);
+        console.log(this.props);
         return (
-            <StyleProvider  style={getTheme()}>
-                <Container style={styles.container}>
-                    <Header/>
-                    <Content>
-                        <List style={styles.list}>
-                            {noiseList.map((noise, index) => {
-                                return <NoiseItem key={index} noiseData={noise}/>
-                            })}
-
-
+            <Container style={styles.container}>
+                <Header noLeft style={styles.header}>
+                    <Left/>
+                    <Body>
+                    <Title>History</Title>
+                    </Body>
+                    <Right />
+                </Header>
+                <Content>
+                    <List style={styles.list}>
+                        {this.props.noiseList.map((noise, index) => {
+                            return <NoiseItem key={index} noiseData={noise}/>
+                        })}
                         </List>
                     </Content>
                 </Container>
-            </StyleProvider>
         );
     }
 }

@@ -8,16 +8,17 @@ import HistoryScreen from './HistoryScreen.js';
 import SettingsScreen from './SettingsScreen.js';
 import DetailsScreen from './DetailsScreen.js';
 
-const Navigator = createBottomTabNavigator({
+const Navigator = new createBottomTabNavigator({
     // Pages for Navigation Bar
-    Home: HomeScreen,
-    "Details Screen": DetailsScreen,
-    "History Screen" : HistoryScreen,
+    Home:  HomeScreen,
+    "Details Screen": {screen: props=>{ return <DetailsScreen {...props.screenProps}/>;}},
+    "History Screen": {screen: props=>{ return <HistoryScreen {...props.screenProps}/>;}},
     Settings: SettingsScreen,
 },
 {
     // Navigation Styles
     defaultNavigationOptions: ({ navigation }) => ({
+
         tabBarIcon: ({ focused, horizontal, tintColor }) => {
             // Icon Styling
             const { routeName } = navigation.state;
@@ -50,7 +51,6 @@ const Navigator = createBottomTabNavigator({
         inactiveTintColor: '#c2c2c2',
     },
 });
-
 export default createAppContainer(Navigator);
 
 

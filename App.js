@@ -2,12 +2,14 @@ import React  from 'react';
 import Navigator from './src/screens/Navigator'
 import IntroSlider from './src/components/IntroSlider/IntroSlider'
 import {asyncStorage, MAP_THEME_KEY} from './src/utilities';
+import {queryAllNoise} from "./src/database/schemas";
 
 class App extends React.Component {
 
 
     state = {
-        isFirstLaunch: "yes"
+        isFirstLaunch: "yes",
+        noiseList: []
     };
 
     componentWillMount() {
@@ -22,6 +24,15 @@ class App extends React.Component {
 
     }
 
+    reloadNoiseData = () => {
+        queryAllNoise().then((noiseList) => {
+            this.setState({noiseList})
+        }).catch(error => {
+            console.log("error in reloading noise history list", error);
+        });
+        console.log('reloadData')
+    };
+
     onFirstLaunchDone = () => {
         console.log("onFirstLaunchDone");
         asyncStorage.storeData('isFirstLaunch', 'no')
@@ -34,7 +45,12 @@ class App extends React.Component {
         return this.state.isFirstLaunch === 'yes' ?
             <IntroSlider onFirstLaunchDone={this.onFirstLaunchDone}/>
                 :
-            <Navigator/>;
+            <Navigator
+                screenProps={{
+                    reloadNoiseData:() => this.reloadNoiseData(),
+                    noiseList:this.state.noiseList,
+                }}
+              />;
     }
 }
 
