@@ -34,6 +34,7 @@ export default class LoginModal extends Component{
         return (
           <Fragment>
             <Modal
+                animationType="fade"
               visible={this.state.modelOpen}
               onRequestClose={this.closeLogin}
               transparent={true}>
