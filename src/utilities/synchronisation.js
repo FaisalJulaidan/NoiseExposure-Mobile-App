@@ -1,9 +1,6 @@
 import {http} from '.'
 import {queryAllNonSyncedNoise, setAllSyncedItemsAsSynced} from "../database/schemas";
 
-import axios from 'react-native-axios';
-
-
 
 // Syncing with axios
 // https://www.npmjs.com/package/react-native-axios
@@ -35,6 +32,8 @@ export function validateUserDetails(email, password) { //Function that posts to 
 
 
 export function sendNoiseDataToServer() {
+    http.defaults.headers.common['Authorization'] = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTM3ODQ0MzQsIm5iZiI6MTU1Mzc4NDQzNCwianRpIjoiNjBkODk5NDUtZjJhMS00ODIzLWExMjAtODgyOWNiMTQ3OTZjIiwiZXhwIjoxNTUzNzg1MzM0LCJpZGVudGl0eSI6eyJ1c2VyIjp7ImlkIjoxLCJlbWFpbCI6InRlc3RAdGVzdC5jb20ifX0sImZyZXNoIjpmYWxzZSwidHlwZSI6ImFjY2VzcyJ9.-feZq4o5OpHaHF6q6MPiaSDXArPnwbwfJpzPSMIHzeU';
+
     console.log('method called ');
     // Query database for all non synced data
     queryAllNonSyncedNoise().then((noiseList) => {
