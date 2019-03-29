@@ -27,7 +27,7 @@ export function validateUserDetails(email, password) {//Function that posts to t
             console.log(LOGIN_TOKEN_KEY + " " + value + " : Key Stored"); //log the token on success
         }).catch(err => console.log('There was an error:' + err)); //error handle if the response is 401.
 
-        asyncStorage.storeData(LOGIN_REFRESH_KEY, response.data.data.refresh).then((value) => {
+        asyncStorage.storeData(LOGIN_REFRESH_KEY, response.data.data.refresh).then((value) => {  //refresh token
             console.log(LOGIN_REFRESH_KEY + " " + value + " : Key Stored");
         }).catch(err => console.log('There was an error:' + err));
 
@@ -41,10 +41,10 @@ export function validateUserDetails(email, password) {//Function that posts to t
 
 
 export function sendNoiseDataToServer() {
-
+//getting the login token key from the async storage
     asyncStorage.retrieveData(LOGIN_TOKEN_KEY).then((token) => {
         console.log("Returned token: " + token);
-
+        //sets the Login token in the request header
         http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
 
         // Query database for all non synced data
@@ -62,36 +62,34 @@ export function sendNoiseDataToServer() {
                 return response
             }).catch(error => {
                 console.log(error);
+                //if the error status is 401
                 if (error.response.status === 401) {
-
+                    //get the LoginRefresh token
                     asyncStorage.retrieveData(LOGIN_REFRESH_KEY).then((refreshToken) => {
-
+                        //set the refresh token in the request header
                         http.defaults.headers.common['Authorization'] = 'Bearer ' + refreshToken;
-
-                        http.post('/auth/refresh').then(function (response) {
+                        http.post('/auth/refresh').then(function (response) { //post the refresh token in the server
                             console.log(response);
-
+                            //sending the login token again for it to get used
                             asyncStorage.storeData(LOGIN_TOKEN_KEY, response.data.data.token).then((value) => { //sending the token (LOGIN_TOKEN_KEY) to the async storage
                                 console.log(LOGIN_TOKEN_KEY + " " + value + " : Key Stored"); //log the token on success
-                            }).catch(err => console.log('There was an error:' + err)); //error handle if the response is 401.
 
+                            }).catch(err => console.log('There was an error:' + err)); //error handle if the response is 401 even with the new LOGIN_TOKEN.
+                            //when the new login token actually exist, we set it again in request header like at the top of the method, as it's a new token.
                             http.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.data.token;
-
-
                             error.config.baseURL="";
-                            http.request(error.config);
-
+                            http.request(error.config); //we post the new token to upload with the noiseList (Same as line 54)
                             return response
-                        }).catch(function (error) {
+                        }).catch(function (error) { //error handling
                             console.log(error);
 
                             return error
                         });
 
-                    }).catch(error => {
+                    }).catch(error => { //error handling
                         console.log("error in reloading noise history list", error);
                     });
-                } else {
+                } else { //if it's not a 401
                     console.log("Not 401 Error");
                 }
 
