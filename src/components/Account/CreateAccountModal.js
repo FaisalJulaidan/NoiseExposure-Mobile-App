@@ -14,6 +14,7 @@ import { Body,
     Text,
     Title,
     View} from "native-base";
+import {createAccountToServer} from "../../utilities";
 
 export default class LoginModal extends Component{
   state = {
@@ -29,6 +30,17 @@ export default class LoginModal extends Component{
   closeLogin = () => this.setState({
     modelOpen: false
   });
+
+  createAccount = () => {
+      createAccountToServer(this.state.email, this.state.password).then( response => {
+      console.log(response);
+      return response
+          
+      }).catch(error =>  {
+          return Alert.alert( " Failed to create account, sign up again");
+      })
+  };
+
 
     render() {
         return (
@@ -70,7 +82,7 @@ export default class LoginModal extends Component{
 
 
                 <Button block primary
-                    onPress={this.closeLogin}
+                    onPress={this.createAccount}
                     style={styles.CreateAccountButton}>
                   <Icon name='md-person-add' />
                   <Text>Create</Text>

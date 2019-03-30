@@ -39,6 +39,19 @@ export function validateUserDetails(email, password) {//Function that posts to t
     });
 }
 
+export function createAccountToServer(email, password){
+    return http.post('/signup', {
+        email: email,
+        password: password
+    }).then( response => {
+        console.log(response);
+        return Promise.resolve(response)
+    }).catch( error => {
+        console.log(error);
+        return Promise.reject(error)
+    })
+}
+
 
 export function sendNoiseDataToServer() {
 //getting the login token key from the async storage
