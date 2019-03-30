@@ -1,6 +1,8 @@
 import {AsyncStorage} from 'react-native';
 
 export const MAP_THEME_KEY = 'Map-Theme';
+export const LOGIN_TOKEN_KEY = 'Login-Token';
+export const LOGIN_REFRESH_KEY = 'Login-Refresh';
 
 // request to Store data in local storage
 const storeData = async (key, value) => {

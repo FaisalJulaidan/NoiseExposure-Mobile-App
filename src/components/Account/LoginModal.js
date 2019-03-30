@@ -20,6 +20,8 @@ import {
 import getTheme from '../../../native-base-theme/components';
 import CreateAccountModal from "./CreateAccountModal";
 
+// Icons using ionicons
+// https://ionicons.com/cheatsheet.html
 
 class LoginModal extends Component {
     state = {
