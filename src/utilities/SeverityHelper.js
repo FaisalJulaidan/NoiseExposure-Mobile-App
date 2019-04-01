@@ -1,4 +1,4 @@
-export const severitySet = (noiseLevel) => {
+export const severityData = (noiseLevel) => {
     if(noiseLevel < 71 ){
         return {
             severityNo: 1,
