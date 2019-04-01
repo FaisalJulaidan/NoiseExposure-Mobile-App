@@ -13,6 +13,7 @@ import { Body,
     StyleProvider,
     Text,
     Title,
+    Toast,
     View} from "native-base";
 import {createAccountToServer} from "../../utilities";
 
@@ -35,6 +36,8 @@ export default class LoginModal extends Component{
       createAccountToServer(this.state.email, this.state.password).then( response => {
       console.log(response);
       console.log(this.state.email, this.state.password);
+      Toast.show("Account Created Successfully");
+
       return response
           
       }).catch(error =>  {
