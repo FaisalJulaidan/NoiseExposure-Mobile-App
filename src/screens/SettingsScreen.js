@@ -8,6 +8,7 @@ import {
     Icon,
     Left,
     Right,
+    Root,
     StyleProvider,
     Switch,
     Text,
@@ -17,6 +18,7 @@ import CreateAccountModal from '../components/Account/CreateAccountModal';
 import LoginModal from "../components/Account/LoginModal";
 import {asyncStorage, MAP_THEME_KEY, sendNoiseDataToServer} from "../utilities";
 import getTheme from '../../native-base-theme/components';
+
 
 class SettingsScreen extends Component {
 
@@ -99,6 +101,7 @@ class SettingsScreen extends Component {
 
     render() {
         return (
+            <Root>
             <StyleProvider  style={getTheme()}>
                 {/*<View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>*/}
                 <Container>
@@ -130,6 +133,7 @@ class SettingsScreen extends Component {
 
                 </Container>
             </StyleProvider>
+            </Root>
 
         );
     }

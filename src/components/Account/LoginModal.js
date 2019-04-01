@@ -28,44 +28,49 @@ class LoginModal extends Component {
     state = {
         modalVisible: false,
         Email: "",
-        Password: ""
+        Password: "",
     };
 
-Validation = () => {
-    console.log(this.state.Email, this.state.Password);
-    validateUserDetails(this.state.Email, this.state.Password).then(function (response) { //response will return with a status code or a key
-        console.log(response);
-        Toast.show("Logged in Successfully!");
-        return response //returning the response
-
-    }).catch(function (error) { //error handling if the post rejects
-        console.log(error);
-        return Toast.show(" Email or Password doesn't match OR the account doesn't exist") //if not send an alert
-    })
-};
 
 
-    setModalVisible(visible) {
-        this.setState({modalVisible: visible});
-    }
+        Validation = () => {
+            console.log(this.state.Email, this.state.Password);
+            validateUserDetails(this.state.Email, this.state.Password).then(function (response) { //response will return with a status code or a key
+                console.log(response);
+                toaster.showToast("Logged in successfully");
+                return response //returning the response
 
-    render() {
-        return (
-            <StyleProvider  style={getTheme()}>
-                <View>
-                    <Modal
-                        animationType="fade"
-                        transparent={false}
-                        visible={this.state.modalVisible}>
-                        <View style={{margin: 22}}>
+            }).catch(function (error) { //error handling if the post rejects
+                console.log(error);
+                return toaster.showToast(" Email or Password doesn't match OR the account doesn't exist") //if not send an alert
+                // Alert.alert("Didn't work, try again")
+            })
+        };
 
-                            <Header noLeft style={styles.HeaderStyle}>
-                                <Left/>
-                                <Body>
-                                <Title>Login</Title>
-                                </Body>
-                                <Right />
-                            </Header>
+
+        setModalVisible(visible) {
+            this.setState({modalVisible: visible});
+        }
+
+
+
+        render() {
+            return (
+                <StyleProvider  style={getTheme()}>
+                    <View>
+                        <Modal
+                            animationType="fade"
+                            transparent={false}
+                            visible={this.state.modalVisible}>
+                            <View style={{margin: 22}}>
+
+                                <Header noLeft style={styles.HeaderStyle}>
+                                    <Left/>
+                                    <Body>
+                                    <Title>Login</Title>
+                                    </Body>
+                                    <Right />
+                                </Header>
 
                                 <Form>
                                     <Item floatingLabel
@@ -104,26 +109,37 @@ Validation = () => {
                                     <Icon name='ios-close-circle-outline'/>
                                     <Text>Cancel</Text>
                                 </Button>
-                            <Text style={styles.CreateAccountText}> Don't have an account? Create one here:</Text>
-                             <CreateAccountModal style={styles.CreateAccountButton}/>
+                                <Text style={styles.CreateAccountText}> Don't have an account? Create one here:</Text>
+                                <CreateAccountModal style={styles.CreateAccountButton}/>
 
-                        </View>
-                    </Modal>
+                            </View>
+                        </Modal>
 
 
-                    <Button block primary
-                            onPress={() => {
-                                this.setModalVisible(true);
-                            }}>
-                        <Icon name='md-log-in'/>
-                        <Text>Log In</Text>
+                        <Button block primary
+                                onPress={() => {
+                                    this.setModalVisible(true);
+                                }}>
+                            <Icon name='md-log-in'/>
+                            <Text>Log In</Text>
 
-                    </Button>
-                </View>
-            </StyleProvider>
-        );
-    }
+                        </Button>
+                    </View>
+                </StyleProvider>
+            );
+        }
 }
+ const toaster =  {
+    showToast: (message, duration = 4000) => {
+        Toast.show({
+            text: message,
+            duration,
+            position: 'bottom',
+            textStyle: {textAlign: 'center'},
+            buttonText: 'Okay',
+        });
+    },
+};
 
 const styles = StyleSheet.create({
     HeaderStyle:{
@@ -157,5 +173,7 @@ const styles = StyleSheet.create({
         color: '#018a99'
     }
 });
+
+
 
 export default LoginModal
