@@ -97,9 +97,6 @@ class NoiseHistory extends Component {
 }
 
 const styles = StyleSheet.create({
-    // header: {
-    //     backgroundColor: '#018a99'
-    // },
     container: {
         margin: 0,
         paddingLeft: 0,
