@@ -15,6 +15,7 @@ import {
     StyleProvider,
     Text,
     Title,
+    Toast,
     View
 } from 'native-base';
 import getTheme from '../../../native-base-theme/components';
@@ -34,11 +35,12 @@ Validation = () => {
     console.log(this.state.Email, this.state.Password);
     validateUserDetails(this.state.Email, this.state.Password).then(function (response) { //response will return with a status code or a key
         console.log(response);
+        Toast.show("Logged in Successfully!");
         return response //returning the response
 
     }).catch(function (error) { //error handling if the post rejects
         console.log(error);
-        return Alert.alert(" Email or Password doesn't match OR the account doesn't exist") //if not send an alert
+        return Toast.show(" Email or Password doesn't match OR the account doesn't exist") //if not send an alert
     })
 };
 
