@@ -34,6 +34,7 @@ export default class LoginModal extends Component{
   createAccount = () => {
       createAccountToServer(this.state.email, this.state.password).then( response => {
       console.log(response);
+      console.log(this.state.email, this.state.password);
       return response
           
       }).catch(error =>  {
@@ -63,8 +64,8 @@ export default class LoginModal extends Component{
                             style={styles.InputsStyle}>
                           <Label>Email</Label>
                           <Input
-                              onChangeText={(Email) => this.setState({Email})}
-                              value={this.state.Email}
+                              onChangeText={(email) => this.setState({email})}
+                              value={this.state.email}
                           />
                       </Item>
 
@@ -72,8 +73,8 @@ export default class LoginModal extends Component{
                             style={styles.InputsStyle}>
                           <Label>Password</Label>
                           <Input
-                              onChangeText={(Password) => this.setState({Password})}
-                              value={this.state.Password}
+                              onChangeText={(password) => this.setState({password})}
+                              value={this.state.password}
                           />
                       </Item>
                   </Form>
