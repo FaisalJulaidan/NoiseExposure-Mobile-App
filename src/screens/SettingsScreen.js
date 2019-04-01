@@ -17,6 +17,7 @@ import CreateAccountModal from '../components/Account/CreateAccountModal';
 import LoginModal from "../components/Account/LoginModal";
 import {asyncStorage, MAP_THEME_KEY, sendNoiseDataToServer} from "../utilities";
 import getTheme from '../../native-base-theme/components';
+import SeverityKey from '../components/NoiseInfo/NoiseInfo'
 
 class SettingsScreen extends Component {
 
@@ -120,6 +121,7 @@ class SettingsScreen extends Component {
                             <Icon name={'md-sync'}/>
                             <Text>Sync Data</Text>
                         </Button>
+                        <SeverityKey />
                         <Text>Enable Dark Theme Map (Change on App Restart)</Text>
                         <Switch
                             onValueChange = {this.changeMapTheme}
