@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react';
-import {Modal, StyleSheet} from 'react-native';
+import {Modal, StyleSheet, ToastAndroid} from 'react-native';
 import { Body,
     Button,
     Form,
@@ -17,7 +17,7 @@ import { Body,
     View} from "native-base";
 import {createAccountToServer} from "../../utilities";
 
-export default class LoginModal extends Component{
+export default class createAccountModal extends Component{
   state = {
     modelOpen: false,
     email: '',
@@ -36,12 +36,13 @@ export default class LoginModal extends Component{
       createAccountToServer(this.state.email, this.state.password).then( response => {
       console.log(response);
       console.log(this.state.email, this.state.password);
-      // Toast.show("Account Created Successfully");
-
+      ToastAndroid.show('Account Created Successfully! Go to the Login Page to collect your own data!', ToastAndroid.LONG);
+      this.closeLogin(false); //closes modal if successful
       return response
           
       }).catch(error =>  {
-          return Alert.alert( " Failed to create account, sign up again");
+          console.log(error);
+          return ToastAndroid.show('Failed to Create account, Please try again!', ToastAndroid.LONG);
       })
   };
 
