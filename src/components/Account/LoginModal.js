@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Alert, Modal, StyleSheet} from 'react-native';
+import {Alert, Modal, StyleSheet, ToastAndroid} from 'react-native';
 import {validateUserDetails} from "../../utilities";
 import {
     Body,
@@ -35,22 +35,24 @@ class LoginModal extends Component {
 
         Validation = () => {
             console.log(this.state.Email, this.state.Password);
-            validateUserDetails(this.state.Email, this.state.Password).then(function (response) { //response will return with a status code or a key
+            validateUserDetails(this.state.Email, this.state.Password).then((response) => { //response will return with a status code or a key
                 console.log(response);
-                toaster.showToast("Logged in successfully");
+                ToastAndroid.show('Successfully Logged in!', ToastAndroid.LONG); //confirming the login is successful to the user
+                this.setModalVisible(!this.state.modalVisible); //closing the modal when logged in.
                 return response //returning the response
 
-            }).catch(function (error) { //error handling if the post rejects
+
+            }).catch((error) => { //error handling if the post rejects
                 console.log(error);
-                return toaster.showToast(" Email or Password doesn't match OR the account doesn't exist") //if not send an alert
+                return ToastAndroid.show('Error Logging in, Please try again!', ToastAndroid.LONG); //if not send an alert
                 // Alert.alert("Didn't work, try again")
             })
         };
 
-
-        setModalVisible(visible) {
+        setModalVisible = (visible) => {
             this.setState({modalVisible: visible});
-        }
+        };
+
 
 
 
