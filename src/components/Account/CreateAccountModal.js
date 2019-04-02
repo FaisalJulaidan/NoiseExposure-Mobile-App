@@ -92,7 +92,7 @@ export default class createAccountModal extends Component{
               <Button block primary
                       disabled={this.props.userLoggedIn}
                       onPress={() => {
-                          this.setModalVisible(true);
+                          this.openLogin(true);
                       }}>
                   <Icon name='md-person-add'/>
                   {this.props.userLoggedIn ?

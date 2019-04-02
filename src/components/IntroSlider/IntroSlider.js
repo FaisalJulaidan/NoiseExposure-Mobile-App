@@ -10,22 +10,29 @@ const slides = [
     {
         key: 'Welcome',
         title: 'Welcome',
-        text: 'Be part of making out city quieter again',
+        text: 'Be part of making our city quieter again',
         colors: '#63E2FF',
         image: require('./assets/cardiff_council_logo.jpg'),
+    },
+    {
+        key: 'NSA',
+        title: 'In Collaboration with',
+        text: 'Cardiff University & The National Software Academy',
+        colors: '#63E2FF',
+        image: require('./assets/cardiff_uni_logo.jpg'),
     },
     {
         key: 'Microphone',
         title: 'Microphone',
         permission:'microphonePermission',
-        text: 'We need to access your microphone and local storage to measure and store noise levels around you.',
+        text: 'We need to access your microphone to measure and store noise levels around you.',
         image: require('./assets/microphone.png'),
     },
     {
         key: 'Storage',
         title: 'Storage',
         permission:'storagePermission',
-        text: 'We also need to access your location to help us relate noise levels in different areas of the city.',
+        text: 'For the microphone to work, we need to access your storage.',
         image: require('./assets/storage.png'),
     },
     {
@@ -103,7 +110,7 @@ export default class IntroSlider extends React.Component {
         const {locationPermission, microphonePermission, storagePermission} = this.state;
 
         // index 1 represents the microphone and storage slide
-        if(index === 1 && microphonePermission !== "authorized") {
+        if(index === 2 && microphonePermission !== "authorized") {
             Permissions.request('microphone').then(response => {
                 // Returns once the user has chosen to 'allow' or to 'deny' access
                 // Response is one of: 'authorized', 'denied', 'restricted', or 'undetermined'
@@ -112,7 +119,7 @@ export default class IntroSlider extends React.Component {
         }
 
         // index 2 represents the storage slide
-        else if (index === 2) {
+        else if (index === 3) {
             if (storagePermission !== "authorized")
                 Permissions.request('storage').then(response => {
                     this.setState({storagePermission: response})
@@ -121,7 +128,7 @@ export default class IntroSlider extends React.Component {
         }
 
         // index 3 represents the location slide
-        else if (index === 3) {
+        else if (index === 4) {
             if (locationPermission !== "authorized")
                 Permissions.request('location').then(response => {
                     this.setState({locationPermission: response})
@@ -166,7 +173,7 @@ const styles = StyleSheet.create({
     },
 
     bottomBtn: {
-        marginTop: 40,
+        marginTop: 70,
         backgroundColor: '#176381',
     },
 

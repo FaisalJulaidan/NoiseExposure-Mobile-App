@@ -21,7 +21,7 @@ import LoginModal from "../components/Account/LoginModal";
 import {asyncStorage, EMAIL_KEY, MAP_THEME_KEY, sendNoiseDataToServer} from "../utilities";
 import getTheme from '../../native-base-theme/components';
 import SeverityKey from '../components/NoiseInfo/NoiseInfo'
-import {StyleSheet} from "react-native";
+import {StyleSheet, ToastAndroid} from "react-native";
 
 
 class SettingsScreen extends Component {
@@ -103,6 +103,7 @@ class SettingsScreen extends Component {
 
         asyncStorage.storeData(MAP_THEME_KEY, mapTheme).then((value) => {
             console.log(MAP_THEME_KEY + " " + value + " : Key Stored");
+            ToastAndroid.show('Theme Set to ' + value, ToastAndroid.LONG);
         }).catch(err => console.log('There was an error:' + err))
     };
 
@@ -151,12 +152,30 @@ class SettingsScreen extends Component {
                             }
                         </Button>
                         <SeverityKey />
-                        <Text>Enable Dark Theme Map (Change on App Restart)</Text>
-                        <Switch
-                            onValueChange = {this.changeMapTheme}
-                            value = {this.state.darkThemeToggle}
-                            disabled={this.state.asyncStorageNotLoaded}
-                        />
+                        <Card style={styles.loginCard}>
+                            <CardItem header style={styles.cardHeader} >
+                                <Text>Enable Dark Theme Map</Text>
+                            </CardItem>
+                            <CardItem>
+                                <Body>
+                                <Text>
+                                    (Change on App Restart)
+                                </Text>
+
+                                </Body>
+                                <Right>
+                                    <Switch
+                                        style={styles.switch}
+                                        onValueChange = {this.changeMapTheme}
+                                        value = {this.state.darkThemeToggle}
+                                        disabled={this.state.asyncStorageNotLoaded}
+                                    />
+                                </Right>
+                            </CardItem>
+
+                        </Card>
+                        <Text> </Text>
+
                     </Content>
 
                 </Container>
@@ -178,6 +197,12 @@ const styles = StyleSheet.create({
     loginCardText: {
         position: 'relative',
         alignItems: 'center'
+    },
+    switch: {
+        alignItems: 'flex-end'
+    },
+    cardHeader: {
+        paddingBottom: -3,
     }
 });
 export default SettingsScreen
