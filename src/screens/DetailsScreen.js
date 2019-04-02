@@ -1,15 +1,26 @@
 import React, { Component } from 'react';
-import {StyleSheet, TextInput, Text, View, Picker, Button, ToastAndroid } from 'react-native';
-import { Container, Header, Left, Body, Title, Right } from 'native-base';
+import {StyleSheet, TextInput, View, Picker, ToastAndroid } from 'react-native';
+import {
+    Body,
+    Button,
+    Container,
+    Header,
+    Left,
+    Right,
+    StyleProvider,
+    Text,
+    Title
+} from 'native-base';
+import getTheme from '../../native-base-theme/components';
 import { retriveDataForAdditionalDetails, updateTypeAndDetails } from '../database/schemas';
 
 class DetailsScreen extends Component {
     state = {
-        type: '',
-        description: '',
         idNoise: '',
         noise: '',
-        location: ''
+        location: '',
+        type: '',
+        description: '',
     };
     onPass = () => {
         const {type, description, idNoise} = this.state
@@ -39,6 +50,7 @@ class DetailsScreen extends Component {
     };
     render() {
         return (
+            <StyleProvider  style={getTheme()}>
             <Container>
                 <Header noLeft style={styles.header}>
                         <Left/>
@@ -52,11 +64,12 @@ class DetailsScreen extends Component {
                     <Text style={styles.dataText}>Current Noise Level: {this.state.noise} dB</Text>
                     <Text style={styles.dataText}>Current Location: {this.state.location}</Text>
                 </View>
-                <View style={styles.addBtn}>
-                    <Button
-                        onPress={this.onRetrieve}
-                        color={'#176381'}
-                        title={"Retrieve Data"}>
+                <View>
+                    <Button 
+                        primary block
+                        style={styles.addBtn}
+                        onPress={this.onRetrieve}>
+                        <Text>Retrieve Data</Text>
                     </Button>
                 </View>
                 <Text style={styles.optionText}>Noise Type: </Text>
@@ -67,8 +80,8 @@ class DetailsScreen extends Component {
                             this.setState({type: itemValue})
                         }>
                         <Picker.Item
-                        label = "Please select an option ..."
-                        value = "option" />
+                        label = "Please Select an Option..."
+                        value = "No Option Chosen" />
                         <Picker.Item
                         label = "Construction"
                         value = "Construction" />
@@ -86,7 +99,7 @@ class DetailsScreen extends Component {
                         value = "Wildlife/Nature" />
                         <Picker.Item
                         label = "Sports Event"
-                        value = "Sports Event" />
+                        value = "Sporting Event" />
                         <Picker.Item
                         label = "People"
                         value = "People" />
@@ -108,14 +121,16 @@ class DetailsScreen extends Component {
                         multiline={true}>
                     </TextInput>
                 </View>
-                <View style={styles.addBtn}>
-                    <Button
-                        color={'#176381'}
-                        title={"Add Details"}
+                <View>
+                    <Button 
+                        primary block
+                        style={styles.addBtn}
                         onPress={this.onPass}>
+                        <Text>Add Details</Text>
                     </Button>
                 </View>
             </Container>
+            </StyleProvider>
         );
     }
 }
@@ -132,9 +147,11 @@ const styles = StyleSheet.create({
         height: "22%"
     },
     addBtn: {
-        width: '30%',
-        right: '5%',
-        left: '65%'
+        position: 'relative',
+        marginTop: 5,
+        marginLeft: 22,
+        marginRight: 22,
+        marginBottom: 5,
     },
     headingText: {
         fontSize: 25,
