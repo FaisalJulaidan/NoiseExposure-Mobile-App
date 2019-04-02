@@ -16,11 +16,11 @@ import { retriveDataForAdditionalDetails, updateTypeAndDetails } from '../databa
 
 class DetailsScreen extends Component {
     state = {
-        type: '',
-        description: '',
         idNoise: '',
         noise: '',
-        location: ''
+        location: '',
+        type: '',
+        description: '',
     };
     onPass = () => {
         const {type, description, idNoise} = this.state
@@ -80,8 +80,8 @@ class DetailsScreen extends Component {
                             this.setState({type: itemValue})
                         }>
                         <Picker.Item
-                        label = "Please select an option ..."
-                        value = "option" />
+                        label = "Please Select an Option..."
+                        value = "No Option Chosen" />
                         <Picker.Item
                         label = "Construction"
                         value = "Construction" />
@@ -99,7 +99,7 @@ class DetailsScreen extends Component {
                         value = "Wildlife/Nature" />
                         <Picker.Item
                         label = "Sports Event"
-                        value = "Sports Event" />
+                        value = "Sporting Event" />
                         <Picker.Item
                         label = "People"
                         value = "People" />
