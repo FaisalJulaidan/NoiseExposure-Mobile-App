@@ -13,7 +13,7 @@ const Navigator = new createBottomTabNavigator({
     Home:  HomeScreen,
     "Details Screen": {screen: props=>{ return <DetailsScreen {...props.screenProps}/>;}},
     "History Screen": {screen: props=>{ return <HistoryScreen {...props.screenProps}/>;}},
-    Settings: SettingsScreen,
+    Settings: {screen: props=>{ return <SettingsScreen {...props}/>;}},
 },
 {
     // Navigation Styles

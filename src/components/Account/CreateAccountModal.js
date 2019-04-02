@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react';
-import {Modal, StyleSheet} from 'react-native';
+import {Modal, StyleSheet, ToastAndroid} from 'react-native';
 import { Body,
     Button,
     Form,
@@ -13,9 +13,11 @@ import { Body,
     StyleProvider,
     Text,
     Title,
+    Toast,
     View} from "native-base";
+import {createAccountToServer} from "../../utilities";
 
-export default class LoginModal extends Component{
+export default class createAccountModal extends Component{
   state = {
     modelOpen: false,
     email: '',
@@ -29,6 +31,21 @@ export default class LoginModal extends Component{
   closeLogin = () => this.setState({
     modelOpen: false
   });
+
+  createAccount = () => {
+      createAccountToServer(this.state.email, this.state.password).then( response => {
+      console.log(response);
+      console.log(this.state.email, this.state.password);
+      ToastAndroid.show('Account Created Successfully! Go to the Login Page to collect your own data!', ToastAndroid.LONG);
+      this.closeLogin(false); //closes modal if successful
+      return response
+          
+      }).catch(error =>  {
+          console.log(error);
+          return ToastAndroid.show('Failed to Create account, Please try again!', ToastAndroid.LONG);
+      })
+  };
+
 
     render() {
         return (
@@ -51,8 +68,8 @@ export default class LoginModal extends Component{
                             style={styles.InputsStyle}>
                           <Label>Email</Label>
                           <Input
-                              onChangeText={(Email) => this.setState({Email})}
-                              value={this.state.Email}
+                              onChangeText={(email) => this.setState({email})}
+                              value={this.state.email}
                           />
                       </Item>
 
@@ -60,8 +77,8 @@ export default class LoginModal extends Component{
                             style={styles.InputsStyle}>
                           <Label>Password</Label>
                           <Input
-                              onChangeText={(Password) => this.setState({Password})}
-                              value={this.state.Password}
+                              onChangeText={(password) => this.setState({password})}
+                              value={this.state.password}
                           />
                       </Item>
                   </Form>
@@ -70,7 +87,7 @@ export default class LoginModal extends Component{
 
 
                 <Button block primary
-                    onPress={this.closeLogin}
+                    onPress={this.createAccount}
                     style={styles.CreateAccountButton}>
                   <Icon name='md-person-add' />
                   <Text>Create</Text>
