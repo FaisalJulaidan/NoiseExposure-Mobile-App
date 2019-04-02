@@ -85,15 +85,6 @@ class SettingsScreen extends Component {
         }).catch(err => console.log('There was an error:' + err))
     };
 
-    loginBtn = () => {
-        if (this.state.userNotLoggedIn === false) {
-            return "Account"
-        }
-        else{
-            return "Log out"
-        }
-    };
-
     sendDataToServer = () => {
         sendNoiseDataToServer();
     };
