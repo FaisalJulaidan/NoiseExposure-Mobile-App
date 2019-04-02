@@ -8,7 +8,7 @@ export const severityData = (noiseLevel) => {
     } else if(noiseLevel > 69 && noiseLevel < 111 ){
         return {
             severityNo: 2,
-            severityColour: '#FFE400',
+            severityColour: '#ffa400',
             severityName: 'Warning'
         }
     } else if(noiseLevel > 110 ){
