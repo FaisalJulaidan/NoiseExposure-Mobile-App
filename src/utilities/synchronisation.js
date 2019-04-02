@@ -2,6 +2,7 @@ import {asyncStorage, http, LOGIN_REFRESH_KEY, LOGIN_TOKEN_KEY} from '.'
 import {queryAllNonSyncedNoise, setAllSyncedItemsAsSynced} from "../database/schemas";
 
 
+
 // Syncing with axios
 // https://www.npmjs.com/package/react-native-axios
 
@@ -37,6 +38,19 @@ export function validateUserDetails(email, password) {//Function that posts to t
         console.log(error);
         return Promise.reject(error)
     });
+}
+
+export function createAccountToServer(email, password){
+    return http.post('/signup', {
+        email: email,
+        password: password
+    }).then( response => {
+        console.log(response);
+        return Promise.resolve(response)
+    }).catch( error => {
+        console.log(error);
+        return Promise.reject(error)
+    })
 }
 
 

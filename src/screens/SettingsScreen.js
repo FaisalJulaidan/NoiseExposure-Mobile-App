@@ -8,6 +8,7 @@ import {
     Icon,
     Left,
     Right,
+    Root,
     StyleProvider,
     Switch,
     Text,
@@ -19,6 +20,7 @@ import {asyncStorage, MAP_THEME_KEY, sendNoiseDataToServer} from "../utilities";
 import getTheme from '../../native-base-theme/components';
 import SeverityKey from '../components/NoiseInfo/NoiseInfo'
 
+
 class SettingsScreen extends Component {
 
     state = {
@@ -28,7 +30,7 @@ class SettingsScreen extends Component {
 
     constructor(props) {
         super(props);
-
+        console.log(this.props);
         this.state = {
             userLoggedIn: false,
         };
@@ -100,6 +102,7 @@ class SettingsScreen extends Component {
 
     render() {
         return (
+            <Root>
             <StyleProvider  style={getTheme()}>
                 {/*<View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>*/}
                 <Container>
@@ -132,6 +135,7 @@ class SettingsScreen extends Component {
 
                 </Container>
             </StyleProvider>
+            </Root>
 
         );
     }
