@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {StyleSheet} from 'react-native';
-import {Container, Content, List, Header, Left, Right, Body, Title} from 'native-base';
+import {Body, Container, Content, Header, Left, List, Right, Title} from 'native-base';
 
-import realm, {insertNoise, queryAllNoise} from '../../database/schemas';
+import {insertNoise} from '../../database/schemas';
 import NoiseItem from './NoiseItem/NoiseItem';
 
 class NoiseHistory extends Component {
@@ -20,7 +20,7 @@ class NoiseHistory extends Component {
             timestamp: new Date(),
             longitude: 1000034.34,
             latitude: 200034.454,
-            type: '', 
+            type: '',
             details: '',
             deviceModel: 'FJ3453',
             severity: '1',
@@ -30,12 +30,12 @@ class NoiseHistory extends Component {
 
         insertNoise({
             // id: 1, // auto generated
-            level: 64,
+            level: 80,
             locationName: 'National Software Academy',
             timestamp: new Date(),
             longitude: -2.998051,
             latitude: 51.589775,
-            type: '', 
+            type: '',
             details: '',
             deviceModel: 'iPhone 8',
             severity: '1',
@@ -58,7 +58,7 @@ class NoiseHistory extends Component {
             isSynced: false
         }).then(() => this.props.reloadNoiseData()).catch(error => console.log(error));
 
-
+        // this.props.reloadNoiseData()
     }
 
     // reloadData = () => {
@@ -82,13 +82,13 @@ class NoiseHistory extends Component {
                     <Right />
                 </Header>
                 <Content>
-                    <List style={styles.list}>
+                    <List>
                         {this.props.noiseList.map((noise, index) => {
                             return <NoiseItem key={index} noiseData={noise}/>
                         })}
-                        </List>
-                    </Content>
-                </Container>
+                    </List>
+                </Content>
+            </Container>
         );
     }
 }
@@ -104,7 +104,6 @@ const styles = StyleSheet.create({
     list: {
         margin: 0,
         paddingLeft: 0,
-
     },
 });
 

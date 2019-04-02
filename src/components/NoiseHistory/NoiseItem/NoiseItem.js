@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
-import {ListItem, Text, Left, Body, Right, Button } from 'native-base';
+import React, {Component} from 'react';
+import {Body, Left, ListItem, Text} from 'native-base';
 import {StyleSheet} from "react-native";
+import {severityData} from "../../../utilities";
+
 class NoiseItem extends Component {
     render() {
         const {noiseData, text} = this.props;
@@ -11,20 +13,27 @@ class NoiseItem extends Component {
             <ListItem thumbnail style={styles.item}>
 
                 <Left>
-                    <Text style={styles.noiseLevel}>
+                    <Text style={[styles.noiseLevel, {color: severityData(noiseData.level).severityColour}]} >
                         {Math.round(noiseData.level)}
                         <Text>dB</Text>
                     </Text>
                 </Left>
 
                 <Body style={styles.info}>
-                <Text>{noiseData.locationName}</Text>
-                <Text note numberOfLines={1}>{noiseData.timestamp.toDateString()}</Text>
-                <Text note numberOfLines={1}>{time}</Text>
-                <Text note numberOfLines={1}>Noise Type: {noiseData.type}</Text>
-                <Text note numberOfLines={3}>Additional Details: {noiseData.details}</Text>   
-                <Text note numberOfLines={1}>Severity: {noiseData.severity}</Text>
-
+                    <Text>{noiseData.locationName}</Text>
+                    <Text note numberOfLines={1}>{noiseData.timestamp.toDateString()}</Text>
+                    <Text note numberOfLines={1}>{time}</Text>
+                    <Text note numberOfLines={1}>Severity: {severityData(noiseData.severity).severityName}</Text>
+                    {noiseData.type !== '' ?
+                        <Text note numberOfLines={1}>Noise Type: {noiseData.type}</Text>
+                        :
+                        <Text note>Unknown Noise Type</Text>
+                    }
+                    {noiseData.details !== '' ?
+                        <Text note numberOfLines={3}>Additional Details: {noiseData.details}</Text>
+                    :
+                        <Text note>No Additional Details Added</Text>
+                    }
                 </Body>
 
                 {/*<Right style={styles.viewBtn}>*/}
@@ -41,10 +50,11 @@ const styles = StyleSheet.create({
     item: {
         backgroundColor: '#EAEAEA',
         padding: 10,
-        marginTop: 20,
-        marginLeft: 20,
-        marginRight: 20,
-        borderRadius: 25,
+        marginTop: 5,
+        marginBottom: 5,
+        marginLeft: 10,
+        marginRight: 10,
+        borderRadius: 5,
     },
     noiseLevel: {
         fontSize: 50,
