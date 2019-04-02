@@ -1,6 +1,5 @@
-import {asyncStorage, http, LOGIN_REFRESH_KEY, LOGIN_TOKEN_KEY} from '.'
+import {asyncStorage, EMAIL_KEY, http, LOGIN_REFRESH_KEY, LOGIN_TOKEN_KEY} from '.'
 import {queryAllNonSyncedNoise, setAllSyncedItemsAsSynced} from "../database/schemas";
-
 
 
 // Syncing with axios
@@ -30,6 +29,10 @@ export function validateUserDetails(email, password) {//Function that posts to t
 
         asyncStorage.storeData(LOGIN_REFRESH_KEY, response.data.data.refresh).then((value) => {  //refresh token
             console.log(LOGIN_REFRESH_KEY + " " + value + " : Key Stored");
+        }).catch(err => console.log('There was an error:' + err));
+
+        asyncStorage.storeData(EMAIL_KEY, response.data.data.user.email).then((value) => {  //logged in email
+            console.log(EMAIL_KEY + " " + value + " : Key Stored");
         }).catch(err => console.log('There was an error:' + err));
 
         return Promise.resolve(response) //returning the response
