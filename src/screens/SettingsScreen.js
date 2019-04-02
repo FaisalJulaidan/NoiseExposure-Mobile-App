@@ -86,7 +86,7 @@ class SettingsScreen extends Component {
     };
 
     loginBtn = () => {
-        if (this.state.userLoggedIn === false) {
+        if (this.state.userNotLoggedIn === false) {
             return "Account"
         }
         else{
@@ -116,10 +116,14 @@ class SettingsScreen extends Component {
                         <LoginModal/>
                         <Button block primary
                                 onPress={this.sendDataToServer}
-                                disabled={this.state.userLoggedIn}
+                                disabled={!this.state.userLoggedIn}
                         >
                             <Icon name={'md-sync'}/>
-                            <Text>Sync Data</Text>
+                            {this.state.userLoggedIn === false ?
+                                <Text>Login To Sync data</Text>
+                                :
+                                <Text>Sync Data</Text>
+                            }
                         </Button>
                         <SeverityKey />
                         <Text>Enable Dark Theme Map (Change on App Restart)</Text>
