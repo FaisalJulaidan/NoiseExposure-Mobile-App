@@ -13,7 +13,6 @@ export default class NoiseLevel extends Component{
         },
         currentSeverity: '',
         comparedTo: '',
-        colour: ''
     }
     
     //https://www.npmjs.com/package/react-native-sound-level
@@ -58,20 +57,6 @@ export default class NoiseLevel extends Component{
         this.setState({
           currentSeverity: <Text style={styles.dangerous}>Dangerous</Text>
         })
-      } 
-    };
-
-    currentColour = () => {
-      if ((this.state.noiselevel_data.value + 160) < 70){
-        this.setState({
-          colour: '#1AB518'
-        })
-      }
-      if (((this.state.noiselevel_data.value + 160) >= 71) && ((this.state.noiselevel_data.value + 160) < 110)){
-        this.setState({colour: '#FFE400'})
-      }
-      if ((this.state.noiselevel_data.value + 160) >= 111){
-        this.setState({colour: '#FF0000'})
       } 
     };
 
