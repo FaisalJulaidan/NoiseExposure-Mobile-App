@@ -32,7 +32,6 @@ class DetailsScreen extends Component {
             type: '',
             description: ''
         });
-        ToastAndroid.show('Successfully Added!', ToastAndroid.SHORT);
     };
     onRetrieve = () => {
         retriveDataForAdditionalDetails().then((noiseFirst) => {
@@ -45,7 +44,6 @@ class DetailsScreen extends Component {
             }).catch(error => {
                 console.log("error data not retrieved")
             });
-            ToastAndroid.show('Successfully Retrieved!', ToastAndroid.SHORT)
         })
     };
     render() {

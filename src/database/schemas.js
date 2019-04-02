@@ -1,5 +1,6 @@
 import Realm from 'realm';
-import shortid from 'shortid'
+import shortid from 'shortid';
+import { ToastAndroid } from 'react-native';
 
 // define models and their properties
 export const NOISE_SCHEMA = 'Noise';
@@ -39,13 +40,13 @@ export const insertNoise = newNoise => new Promise((resolve, reject) => {
 });
 
 export const updateTypeAndDetails = (idNoise, type, description) => new Promise ((resolve, reject) => {
-    //console.log(type, description, idNoise)
     Realm.open(databaseOptions).then(realm => {
         realm.write(() => {
             realm.create(NOISE_SCHEMA, {id: idNoise, type: type, details: description}, true)
             resolve(idNoise, type, description)
+            ToastAndroid.show('Successfully Updated!', ToastAndroid.SHORT);
         })
-    }).catch(error => reject(error))
+    }).catch(error => reject(error, ToastAndroid.show('Nothing Updated!', ToastAndroid.SHORT)))
 });
 
 export const queryAllNoise = () => new Promise((resolve, reject) => {
@@ -79,11 +80,10 @@ export const  setAllSyncedItemsAsSynced = (syncedRows) => new Promise((resolve, 
 
 export const retriveDataForAdditionalDetails = () => new Promise((resolve, reject) => {
     Realm.open(databaseOptions).then(realm => {
-        let sortedNoiseList = realm.objects(NOISE_SCHEMA).filtered('details = ""')
-            .sorted('timestamp', true)
+        let sortedNoiseList = realm.objects(NOISE_SCHEMA).filtered('details = ""').sorted('timestamp', true)
         resolve(sortedNoiseList[0])
-        console.log(sortedNoiseList[0])
-    }).catch(error => reject(error))
+        ToastAndroid.show('Successfully Retrieved!', ToastAndroid.SHORT)
+    }).catch(error => reject(error, ToastAndroid.show('Nothing Retrieved!', ToastAndroid.SHORT)))
 });
 
 export default new Realm(databaseOptions);
