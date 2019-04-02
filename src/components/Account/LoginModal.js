@@ -131,17 +131,6 @@ class LoginModal extends Component {
             );
         }
 }
- const toaster =  {
-    showToast: (message, duration = 4000) => {
-        Toast.show({
-            text: message,
-            duration,
-            position: 'bottom',
-            textStyle: {textAlign: 'center'},
-            buttonText: 'Okay',
-        });
-    },
-};
 
 const styles = StyleSheet.create({
     HeaderStyle:{
