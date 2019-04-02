@@ -21,6 +21,7 @@ import LoginModal from "../components/Account/LoginModal";
 import {asyncStorage, EMAIL_KEY, MAP_THEME_KEY, sendNoiseDataToServer} from "../utilities";
 import getTheme from '../../native-base-theme/components';
 import SeverityKey from '../components/NoiseInfo/NoiseInfo'
+import {StyleSheet} from "react-native";
 
 
 class SettingsScreen extends Component {
@@ -35,11 +36,6 @@ class SettingsScreen extends Component {
     constructor(props) {
         super(props);
         console.log(this.props);
-        // asyncStorage.storeData(MAP_THEME_KEY, 'light').then((value) => {
-        //
-        // }).catch((error) => {
-        //
-        // });
 
         // Get email to check if user is logged in.
         asyncStorage.retrieveData(EMAIL_KEY).then((value) => {
@@ -128,8 +124,8 @@ class SettingsScreen extends Component {
                         <Right />
                     </Header>
 
-                    <Content style={{padding: 10}}>
-                        <Card>
+                    <Content style={styles.content}>
+                        <Card style={styles.loginCard}>
                             <CardItem>
                                 <Body>
                                     {this.state.userLoggedIn === false ?
@@ -171,4 +167,14 @@ class SettingsScreen extends Component {
     }
 }
 
+
+const styles = StyleSheet.create({
+    content: {
+        padding: 10
+    },
+    loginCard: {
+        marginBottom: 20,
+        textAlign: 'center'
+    },
+});
 export default SettingsScreen
