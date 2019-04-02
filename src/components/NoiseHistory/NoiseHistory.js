@@ -21,7 +21,7 @@ class NoiseHistory extends Component {
             timestamp: new Date(),
             longitude: 1000034.34,
             latitude: 200034.454,
-            type: '', 
+            type: '',
             details: '',
             deviceModel: 'FJ3453',
             severity: '1',
@@ -31,12 +31,12 @@ class NoiseHistory extends Component {
 
         insertNoise({
             // id: 1, // auto generated
-            level: 64,
+            level: 80,
             locationName: 'National Software Academy',
             timestamp: new Date(),
             longitude: -2.998051,
             latitude: 51.589775,
-            type: '', 
+            type: '',
             details: '',
             deviceModel: 'iPhone 8',
             severity: '1',
@@ -104,7 +104,6 @@ const styles = StyleSheet.create({
     list: {
         margin: 0,
         paddingLeft: 0,
-
     },
 });
 
