@@ -127,7 +127,7 @@ class SettingsScreen extends Component {
                     <Content style={styles.content}>
                         <Card style={styles.loginCard}>
                             <CardItem>
-                                <Body>
+                                <Body style={styles.loginCardText}>
                                     {this.state.userLoggedIn === false ?
                                         <Text>No User logged in</Text>
                                         :
@@ -170,11 +170,14 @@ class SettingsScreen extends Component {
 
 const styles = StyleSheet.create({
     content: {
-        padding: 10
+        padding: 10,
     },
     loginCard: {
         marginBottom: 20,
-        textAlign: 'center'
     },
+    loginCardText: {
+        position: 'relative',
+        alignItems: 'center'
+    }
 });
 export default SettingsScreen
