@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {
     Body,
     Button,
+    Card,
+    CardItem,
     Container,
     Content,
     Header,
@@ -16,29 +18,38 @@ import {
 } from 'native-base';
 import CreateAccountModal from '../components/Account/CreateAccountModal';
 import LoginModal from "../components/Account/LoginModal";
-import {asyncStorage, MAP_THEME_KEY, sendNoiseDataToServer} from "../utilities";
+import {asyncStorage, EMAIL_KEY, MAP_THEME_KEY, sendNoiseDataToServer} from "../utilities";
 import getTheme from '../../native-base-theme/components';
 import SeverityKey from '../components/NoiseInfo/NoiseInfo'
+import {StyleSheet} from "react-native";
 
 
 class SettingsScreen extends Component {
 
     state = {
         darkThemeToggle: false,
-        asyncStorageNotLoaded: true
+        asyncStorageNotLoaded: true,
+        userLoggedIn: false,
+        email: ''
     };
 
     constructor(props) {
         super(props);
         console.log(this.props);
-        this.state = {
-            userLoggedIn: false,
-        };
-        // asyncStorage.storeData(MAP_THEME_KEY, 'light').then((value) => {
-        //
-        // }).catch((error) => {
-        //
-        // });
+
+        // Get email to check if user is logged in.
+        asyncStorage.retrieveData(EMAIL_KEY).then((value) => {
+            console.log("Key returned : " + value);
+            this.setState({
+                userLoggedIn: true,
+                email: value
+            });
+        }).catch(error => {
+            console.log("Error getting Key" + error);
+            this.setState({
+                userLoggedIn: false,
+            });
+        });
 
         // Call the Async Storage to get MapThemeKey Value
         asyncStorage.retrieveData(MAP_THEME_KEY).then((value) => {
@@ -61,8 +72,16 @@ class SettingsScreen extends Component {
                 asyncStorageNotLoaded: false
             });
         });
-
     }
+
+    // Set login State based on successful login
+    setLoginState = (success, email) => {
+        console.log('Ha ha HA ');
+        this.setState({
+            userLoggedIn: success,
+            email: email
+        });
+    };
 
     // Method to set the Map theme in local storage
     changeMapTheme = (value) => {
@@ -87,15 +106,6 @@ class SettingsScreen extends Component {
         }).catch(err => console.log('There was an error:' + err))
     };
 
-    loginBtn = () => {
-        if (this.state.userLoggedIn === false) {
-            return "Account"
-        }
-        else{
-            return "Log out"
-        }
-    };
-
     sendDataToServer = () => {
         sendNoiseDataToServer();
     };
@@ -114,15 +124,31 @@ class SettingsScreen extends Component {
                         <Right />
                     </Header>
 
-                    <Content style={{padding: 10}}>
-                        <CreateAccountModal/>
-                        <LoginModal/>
+                    <Content style={styles.content}>
+                        <Card style={styles.loginCard}>
+                            <CardItem>
+                                <Body style={styles.loginCardText}>
+                                    {this.state.userLoggedIn === false ?
+                                        <Text>No User logged in</Text>
+                                        :
+                                        <Text>Logged in as: {this.state.email}</Text>
+                                    }
+                                </Body>
+                            </CardItem>
+                        </Card>
+
+                        <CreateAccountModal userLoggedIn={this.state.userLoggedIn}/>
+                        <LoginModal userLoggedIn={this.state.userLoggedIn} setLoginState={this.setLoginState}/>
                         <Button block primary
                                 onPress={this.sendDataToServer}
-                                disabled={this.state.userLoggedIn}
+                                disabled={!this.state.userLoggedIn}
                         >
                             <Icon name={'md-sync'}/>
-                            <Text>Sync Data</Text>
+                            {this.state.userLoggedIn === false ?
+                                <Text>Login To Sync data</Text>
+                                :
+                                <Text>Sync Data</Text>
+                            }
                         </Button>
                         <SeverityKey />
                         <Text>Enable Dark Theme Map (Change on App Restart)</Text>
@@ -141,4 +167,17 @@ class SettingsScreen extends Component {
     }
 }
 
+
+const styles = StyleSheet.create({
+    content: {
+        padding: 10,
+    },
+    loginCard: {
+        marginBottom: 20,
+    },
+    loginCardText: {
+        position: 'relative',
+        alignItems: 'center'
+    }
+});
 export default SettingsScreen

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Alert, Modal, StyleSheet, ToastAndroid} from 'react-native';
+import {Modal, StyleSheet, ToastAndroid} from 'react-native';
 import {validateUserDetails} from "../../utilities";
 import {
     Body,
@@ -15,7 +15,6 @@ import {
     StyleProvider,
     Text,
     Title,
-    Toast,
     View
 } from 'native-base';
 import getTheme from '../../../native-base-theme/components';
@@ -31,14 +30,13 @@ class LoginModal extends Component {
         Password: "",
     };
 
-
-
         Validation = () => {
             console.log(this.state.Email, this.state.Password);
             validateUserDetails(this.state.Email, this.state.Password).then((response) => { //response will return with a status code or a key
                 console.log(response);
                 ToastAndroid.show('Successfully Logged in!', ToastAndroid.LONG); //confirming the login is successful to the user
                 this.setModalVisible(!this.state.modalVisible); //closing the modal when logged in.
+                this.props.setLoginState(true, response.data.data.user.email);
                 return response //returning the response
 
 
@@ -88,6 +86,7 @@ class LoginModal extends Component {
                                           style={styles.passwordtext}>
                                         <Label>Password</Label>
                                         <Input
+                                            secureTextEntry={true}
                                             onChangeText={(Password) => this.setState({Password})}
                                             value={this.state.Password}
                                         />
@@ -119,12 +118,17 @@ class LoginModal extends Component {
 
 
                         <Button block primary
+                                disabled={this.props.userLoggedIn}
                                 onPress={() => {
                                     this.setModalVisible(true);
                                 }}>
                             <Icon name='md-log-in'/>
-                            <Text>Log In</Text>
+                            {this.props.userLoggedIn ?
+                                <Text>User Already Logged in</Text>
+                                :
+                                <Text>Log In</Text>
 
+                            }
                         </Button>
                     </View>
                 </StyleProvider>

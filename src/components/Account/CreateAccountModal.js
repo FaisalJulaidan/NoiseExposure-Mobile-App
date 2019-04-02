@@ -1,20 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import {Modal, StyleSheet, ToastAndroid} from 'react-native';
-import { Body,
-    Button,
-    Form,
-    Header,
-    Icon,
-    Input,
-    Item,
-    Label,
-    Left,
-    Right,
-    StyleProvider,
-    Text,
-    Title,
-    Toast,
-    View} from "native-base";
+import {Body, Button, Form, Header, Icon, Input, Item, Label, Left, Right, Text, Title, View} from "native-base";
 import {createAccountToServer} from "../../utilities";
 
 export default class createAccountModal extends Component{
@@ -86,6 +72,7 @@ export default class createAccountModal extends Component{
                       You are required to have an account to make data public.</Text>
 
 
+
                 <Button block primary
                     onPress={this.createAccount}
                     style={styles.CreateAccountButton}>
@@ -101,13 +88,19 @@ export default class createAccountModal extends Component{
                 </Button>
               </View>
             </Modal>
-            <Button block primary
-                    onPress={this.openLogin}
-                    disabled={this.state.userLoggedIn}
-            >
-              <Icon name={'md-person-add'}/>
-              <Text>Create Account</Text>
-            </Button>
+
+              <Button block primary
+                      disabled={this.props.userLoggedIn}
+                      onPress={() => {
+                          this.setModalVisible(true);
+                      }}>
+                  <Icon name='md-person-add'/>
+                  {this.props.userLoggedIn ?
+                      <Text>User Already Logged in</Text>
+                      :
+                      <Text>Create Account</Text>
+                  }
+              </Button>
           </Fragment>
         );
     }
