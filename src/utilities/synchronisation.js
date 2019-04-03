@@ -1,5 +1,6 @@
 import {asyncStorage, EMAIL_KEY, http, LOGIN_REFRESH_KEY, LOGIN_TOKEN_KEY} from '.'
 import {queryAllNonSyncedNoise, setAllSyncedItemsAsSynced} from "../database/schemas";
+import axios from 'react-native-axios';
 
 
 // Syncing with axios
@@ -124,6 +125,16 @@ export function sendNoiseDataToServer() {
     });
 }
 
+export function getFormattedAddress(latitude, longitude){
+    return axios.post('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&key=AIzaSyBAz_fOHTtaJ8spTq2h5kiGtSP-GCBDEEc')
+        .then( response => {
+        console.log(response);
+        return Promise.resolve(response.data.results[0].formatted_address)
+    }).catch( error => {
+        console.log(error);
+        return Promise.reject(error)
+    })
+}
 
 // http.get('/noise')
 //     .then(function (response) {
