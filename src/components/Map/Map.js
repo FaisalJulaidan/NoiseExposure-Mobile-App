@@ -110,7 +110,7 @@ export default class Map extends Component<Props> {
                         pinColor="#3b747b"
                     />
                 </MapView>
-                <NoiseLevel/>
+                <NoiseLevel  reloadNoiseData={this.props.reloadNoiseData}/>
             </View>
         );
     }

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, ToastAndroid, View} from 'react-native';
 import RNSoundLevel from 'react-native-sound-level';
 import Slider from 'react-native-slider'
 import { insertNoise } from './../../database/schemas';
+import {getFormattedAddress, location, severityData, validateUserDetails} from "../../utilities";
 
 export default class NoiseLevel extends Component{
     state = {
@@ -11,49 +12,107 @@ export default class NoiseLevel extends Component{
                 value: -160,       // sound level in decibels, -160 is a silence level
                 rawValue:0        // raw level value, OS-dependent
         },
+
+        noiselevel_fast: {
+            id:0,             // frame number
+            value: -160,       // sound level in decibels, -160 is a silence level
+            rawValue:0        // raw level value, OS-dependent
+        },
         currentSeverity: '',
         comparedTo: '',
-    }
-    
-    //https://www.npmjs.com/package/react-native-sound-level
-    componentDidMount() {
+
+        noiseRecord: null,
+    };
+
+    currentLocation = null
+
+    getLocation = ()  => {
+        navigator.geolocation.getCurrentPosition(
+            //Will give you the current location
+            (position) => {
+                // console.log("HHHHHHHHHHHHHHHHHHHHHHHHHHH");
+                // console.log(position)
+
+                this.currentLocation = {
+                    lat: position.coords.latitude,
+                    long: position.coords.longitude
+                }
+            },
+
+        );
+    };
+
+
+    componentWillMount() {
+        let newNoiseRecord = null
         RNSoundLevel.start();
         RNSoundLevel.onNewFrame = (data) => {
-            // insertNoise({
-            //     // id: 1, // auto generated
-            //     level: data.value + 160,
-            //     locationName: 'Queen Street',
-            //     timestamp: new Date(),
-            //     longitude: 1000034.34,
-            //     latitude: 200034.454,
-            //     // type: ''
-            //     deviceModel: 'FJ3453',
-            //     isPublic: false,
-            //     isSynced: false
-            // }).then(value => this.reloadData()).catch(error => console.log(error));
-            this.setState({
-               noiselevel_data: data 
-            })
-            this.getSeverityLevel()
-            this.setComparedTo()
-        }
+            this.setState({noiselevel_fast: data});
+            this.getSeverityLevel();
+            this.setComparedTo();
+        };
+
+        this.interval_1 = setInterval(() => {
+            this.setState({noiselevel_data: this.state.noiselevel_fast});
+        }, 900);
+
+
+        this.interval_2 = setInterval(() => {
+            this.getLocation();
+
+
+            let level =  this.state.noiselevel_data.value + 160;
+            console.log(severityData(level).severityNo + "");
+
+            if(this.currentLocation) {
+                getFormattedAddress(this.currentLocation.lat,this.currentLocation.long).then((address) => { //response will return with a status code or a key
+
+                    insertNoise(newNoiseRecord).then(value =>  {console.log("Inserted"); this.props.reloadNoiseData()})
+                        .catch(error => console.log(error));
+
+                    newNoiseRecord = {
+                        // id: 1, // auto generated
+                        level: level,
+                        locationName: address,
+                        timestamp: new Date(),
+                        latitude:  this.currentLocation.lat,
+                        longitude: this.currentLocation.long,
+                        type: '',
+                        details: '',
+                        deviceModel: 'FJ3453',
+                        severity: severityData(level).severityNo + "",
+                        isPublic: true,
+                        isSynced: false
+                    };
+                }).catch((error) => { //error handling if the post rejects
+
+                });
+
+
+            }
+        }, 15000);
+
+
+
       };
     componentWillUnmount() {
-      RNSoundLevel.stop()
+      RNSoundLevel.stop();
+      this.interval_1.clear();
+      this.interval_2.clear();
     };
 
     getSeverityLevel = () => {
-      if ((this.state.noiselevel_data.value + 160) < 80){
+      if ((this.state.noiselevel_data.value + 160) < 70){
         this.setState({
           currentSeverity: <Text style={styles.normal}>Normal</Text>
         })
       }
-      if (((this.state.noiselevel_data.value + 160) >= 81) && ((this.state.noiselevel_data.value + 160) < 120)){
+      if (((this.state.noiselevel_data.value + 160) >= 71) && ((this.state.noiselevel_data.value + 160) < 110)){
         this.setState({
           currentSeverity: <Text style={styles.warning}>Warning</Text>
         })
       }
-      if ((this.state.noiselevel_data.value + 160) >= 121){
+      if ((this.state.noiselevel_data.value + 160) >= 111){
         this.setState({
           currentSeverity: <Text style={styles.dangerous}>Dangerous</Text>
         })
