@@ -23,7 +23,7 @@ class NoiseItem extends Component {
                     <Text>{noiseData.locationName}</Text>
                     <Text note numberOfLines={1}>{noiseData.timestamp.toDateString()}</Text>
                     <Text note numberOfLines={1}>{time}</Text>
-                    <Text note numberOfLines={1}>Severity: {severityData(noiseData.severity).severityName}</Text>
+                    <Text note numberOfLines={1}>Severity: {severityData(noiseData.level).severityName}</Text>
                     {noiseData.type !== '' ?
                         <Text note numberOfLines={1}>Noise Type: {noiseData.type}</Text>
                         :
@@ -35,12 +35,6 @@ class NoiseItem extends Component {
                         <Text note>No Additional Details Added</Text>
                     }
                 </Body>
-
-                {/*<Right style={styles.viewBtn}>*/}
-                    {/*<Button transparent>*/}
-                        {/*<Text>View</Text>*/}
-                    {/*</Button>*/}
-                {/*</Right>*/}
             </ListItem>
         );
     }

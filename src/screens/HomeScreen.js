@@ -20,7 +20,7 @@ class HomeScreen extends React.Component {
     render() {
         return (
             <View style={{ flex: 1}}>
-                <Map/>
+                <Map  reloadNoiseData={this.props.reloadNoiseData}/>
             </View>
         );
     }

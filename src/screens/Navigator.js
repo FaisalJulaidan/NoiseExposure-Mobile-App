@@ -10,7 +10,7 @@ import DetailsScreen from './DetailsScreen.js';
 
 const Navigator = new createBottomTabNavigator({
     // Pages for Navigation Bar
-    Home:  HomeScreen,
+    Home:  {screen: props=>{ return <HomeScreen {...props.screenProps}/>;}},
     "Details Screen": {screen: props=>{ return <DetailsScreen {...props.screenProps}/>;}},
     "History Screen": {screen: props=>{ return <HistoryScreen {...props.screenProps}/>;}},
     Settings: {screen: props=>{ return <SettingsScreen {...props}/>;}},
