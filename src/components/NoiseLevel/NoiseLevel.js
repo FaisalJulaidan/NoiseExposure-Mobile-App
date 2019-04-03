@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, ToastAndroid, View} from 'react-native';
 import RNSoundLevel from 'react-native-sound-level';
 import Slider from 'react-native-slider'
 import { insertNoise } from './../../database/schemas';
-import {location, severityData} from "../../utilities";
+import {getFormattedAddress, location, severityData, validateUserDetails} from "../../utilities";
 
 export default class NoiseLevel extends Component{
     state = {
@@ -65,23 +65,30 @@ export default class NoiseLevel extends Component{
             console.log(severityData(level).severityNo + "");
 
             if(this.currentLocation) {
-                newNoiseRecord = {
-                    // id: 1, // auto generated
-                    level: level,
-                    locationName: '',
-                    timestamp: new Date(),
-                    latitude:  this.currentLocation.lat,
-                    longitude: this.currentLocation.long,
-                    type: '',
-                    details: '',
-                    deviceModel: 'FJ3453',
-                    severity: severityData(level).severityNo + "",
-                    isPublic: false,
-                    isSynced: false
-                };
+                getFormattedAddress(this.currentLocation.lat,this.currentLocation.long).then((address) => { //response will return with a status code or a key
 
-                insertNoise(newNoiseRecord).then(value =>  {console.log("Inserted"); this.props.reloadNoiseData()})
-                    .catch(error => console.log(error));
+                    insertNoise(newNoiseRecord).then(value =>  {console.log("Inserted"); this.props.reloadNoiseData()})
+                        .catch(error => console.log(error));
+
+                    newNoiseRecord = {
+                        // id: 1, // auto generated
+                        level: level,
+                        locationName: address,
+                        timestamp: new Date(),
+                        latitude:  this.currentLocation.lat,
+                        longitude: this.currentLocation.long,
+                        type: '',
+                        details: '',
+                        deviceModel: 'FJ3453',
+                        severity: severityData(level).severityNo + "",
+                        isPublic: true,
+                        isSynced: false
+                    };
+                }).catch((error) => { //error handling if the post rejects
+
+                });
+
+
             }
         }, 15000);
 

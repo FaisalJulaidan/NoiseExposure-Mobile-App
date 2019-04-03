@@ -42,7 +42,7 @@ export const insertNoise = newNoise => new Promise((resolve, reject) => {
 export const updateTypeAndDetails = (idNoise, type, description) => new Promise ((resolve, reject) => {
     Realm.open(databaseOptions).then(realm => {
         realm.write(() => {
-            realm.create(NOISE_SCHEMA, {id: idNoise, type: type, details: description}, true)
+            realm.create(NOISE_SCHEMA, {id: idNoise, type: type, details: description, isSynced: false}, true)
             resolve(idNoise, type, description)
             ToastAndroid.show('Successfully Updated!', ToastAndroid.SHORT);
         })
