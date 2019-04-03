@@ -56,12 +56,8 @@ git clone git@gitlab.cs.cf.ac.uk:c1628682/nea_mobile.git
 https://facebook.github.io/react-native/docs/getting-started
 **Note: make sure you follow the instructions for "React Native CLI Quick Start" and NOT "Expo CLI Quickstart"**
 
-##### 3. Install modules required
-```bash
-pipenv install
-```
 
-##### 4. Run the application
+##### 3. Run the application
 for **ios**
 ```
 react-native run-ios
@@ -83,7 +79,6 @@ The kind of responses you might recieve are
 - 400 - Bad Request
 - 500 - Internal Server Error
 - 401 - Unauthorized
-- 201 - Created (Resource created)
 
 
 
