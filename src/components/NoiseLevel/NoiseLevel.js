@@ -63,12 +63,12 @@ export default class NoiseLevel extends Component{
     setComparedTo = () => {
       if (((this.state.noiselevel_data.value + 160) >= 0) && ((this.state.noiselevel_data.value + 160) <= 20)){
         this.setState({
-          comparedTo: 'Someone Breathing or Whispering'
+          comparedTo: 'Breathing or Whispering'
         })
       }
       if (((this.state.noiselevel_data.value + 160) >= 21) && ((this.state.noiselevel_data.value + 160) <= 40)){
         this.setState({
-          comparedTo: 'Quiet Rural areas or Bird Calls'
+          comparedTo: 'Bird Calls'
         })
       }
       if (((this.state.noiselevel_data.value + 160) >= 41) && ((this.state.noiselevel_data.value + 160) <= 50)){
@@ -78,22 +78,22 @@ export default class NoiseLevel extends Component{
       }
       if (((this.state.noiselevel_data.value + 160) >= 51) && ((this.state.noiselevel_data.value + 160) <= 70)){
         this.setState({
-          comparedTo: 'Normal Conversation or Background Music'
+          comparedTo: 'Normal Conversation'
         })
       }
       if (((this.state.noiselevel_data.value + 160) >= 71) && ((this.state.noiselevel_data.value + 160) <= 80)){
         this.setState({
-          comparedTo: 'Normal Traffic or Vaccum Cleaners'
+          comparedTo: 'Normal Traffic'
         })
       }
       if (((this.state.noiselevel_data.value + 160) >= 81) && ((this.state.noiselevel_data.value + 160) <= 90)){
         this.setState({
-          ccomparedTo: 'Railway Noise or Rubbish disposal'
+          comparedTo: 'Railway Noise'
         })
       }
       if (((this.state.noiselevel_data.value + 160) >= 91) && ((this.state.noiselevel_data.value + 160) <= 100)){
         this.setState({
-          comparedTo: 'Lawn Mower or Motorbike'
+          comparedTo: 'Motorbikes'
         })
       }
       if (((this.state.noiselevel_data.value + 160) >= 101) && ((this.state.noiselevel_data.value + 160) <= 120)){
@@ -152,27 +152,27 @@ textOne: {
     margin: 1,
     color: '#FFFFFF',
     textAlign: 'center',
-    opacity: 1
+    opacity: 0.8
   },
   severityText: {
     color: '#FFFFFF',
     fontSize: 15,
-    marginBottom: '1%'
+    marginBottom: 5
   },
   displayBox:{
     backgroundColor: '#176381',
-    opacity: 1,
-    left: "2%",
-    right: "2%",
+    opacity: 0.8,
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
-    width: '96%',
-    top: "2%",
     alignItems: "center",
-    justifyContent: "flex-end",
-    position: "absolute"
+    position: "relative",
+    justifyContent: 'flex-start',
+    width: '92%',
+    marginRight: '4%',
+    marginLeft: '4%',
+    top: 15
   },
   sliderStyle:{
     backgroundColor: '#FFFFFF'

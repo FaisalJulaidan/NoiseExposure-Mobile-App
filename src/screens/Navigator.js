@@ -44,7 +44,7 @@ const Navigator = new createBottomTabNavigator({
             paddingBottom: 6,
         },
         style: {
-            backgroundColor: '#018a99',
+            backgroundColor: '#176381',
             height: 62,
         },
         activeTintColor: '#ffffff',

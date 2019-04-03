@@ -31,10 +31,10 @@ export default class Location extends Component<Props> {
                 this.updateLocation(location)
 
             },
-            (error) => alert(error.message),
-            {
-                enableHighAccuracy: true, timeout: 20000, maximumAge: 1000
-            }
+            // (error) => alert(error.message),
+            // {
+            //     enableHighAccuracy: true, timeout: 20000, maximumAge: 1000
+            // }
         );
 
         navigator.geolocation.watchPosition((position) => {
