@@ -31,7 +31,7 @@ Our solution is a Mobile Application for the general public that will collect de
 * Introduction Slider - react-native-intro-slider
 * Noise level recording - react-native-sound-level
 * Map - react-native-maps
-* Tabbed Navigation - react-native-navigation **(version 3)**
+* Tabbed Navigation - react-navigation **(version 3)**
 
 
 ## Features
@@ -42,7 +42,7 @@ Our solution is a Mobile Application for the general public that will collect de
 - [x] Dark theme map
 - [x] Introduction slider
 - [x] Logged noise levels history
-- [x] Noise level's severiy colored indicator
+- [x] Noise level's severity colored indicator
 - [x] Add additional detials to logged noise levels manually
 
 
@@ -59,8 +59,12 @@ git clone git@gitlab.cs.cf.ac.uk:c1628682/nea_mobile.git
 https://facebook.github.io/react-native/docs/getting-started
 **Note: make sure you follow the instructions for "React Native CLI Quick Start" and NOT "Expo CLI Quickstart"**
 
+##### 3. Install dependencies
+```
+npm install
+```  
 
-##### 3. Run the application
+##### 4. Run the application
 for **ios**
 ```
 react-native run-ios
@@ -70,8 +74,6 @@ for **android**
 ```
 react-native run-android
 ```
-
-This can be seen now at [http://127.0.0.1:5000/](http://127.0.0.1:5000/)
 
 
 
