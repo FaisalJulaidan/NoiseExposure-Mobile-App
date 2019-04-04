@@ -1,5 +1,8 @@
 ###### Note: this README file is dedicated for the Mobile Application side of the project for further details about the other sides of the project i.e. Server side, and Web Application, please check their repositories. You will need to install/setup all the three repositories for the project to work properly (e.g. retrive data from the database, login, etc.)
 
+###### Note: Make sure that the two sides, Mobile and Web Application, have the same IP address of the server. For furter deatils check the Project Installation section in every side's README file
+
+
 ## Motivation
 
 Cardiff Council’s ultimate goal is to make Cardiff a better place to live, work and visit. Additionally, Cardiff Council are facing the need to reduce costs with the annual budget being reduced every year, while still maintaining a high level of service which is expected of them. Despite budget cuts, there is no desirable income to be gained from achieving the ultimate goal.
